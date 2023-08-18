@@ -4,8 +4,9 @@
     "description": {
       "identifier": "minecraft:cooked_chicken"
     },
+
     "components": {
-      "minecraft:use_duration": 1.6,
+      "minecraft:use_duration": 32,
       "minecraft:food": {
         "nutrition": 6,
         "saturation_modifier": "normal"

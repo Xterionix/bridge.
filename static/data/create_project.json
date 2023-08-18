@@ -35,7 +35,7 @@
         "files": {
             "pack_icon.png": "pack_icon.png",
             "SHARED/languages.json": "texts/languages.json",
-            "SHARED/lang_file.lang": {
+            "BP/lang_file.lang": {
                 "file": "texts/en_US.lang",
                 "with": {
                     "{description}": "$description",

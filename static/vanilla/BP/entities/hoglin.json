@@ -1,5 +1,5 @@
 {
-  "format_version": "1.16.0",
+  "format_version": "1.18.30",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:hoglin",
@@ -152,8 +152,8 @@
       },
       "minecraft:hoglin_adult": {
         "minecraft:collision_box": {
-          "width": 0.9,
-          "height": 0.9
+          "width": 1.4,
+          "height": 1.4
         },
         "minecraft:movement": {
           "value": 0.3
@@ -197,7 +197,7 @@
           "priority": 4,
           "speed_multiplier": 1,
           "track_target": true,
-          "reach_multiplier": 2.5,
+          "reach_multiplier": 2.15, // Matches Java reach which is 3.0 blocks (collision_box:width * reach_multiplier)
           "cooldown_time": 2
         },
         "minecraft:attack": {
@@ -252,7 +252,7 @@
         "on_death": "query.last_hit_by_player ? 5 : 0"
       },
       "minecraft:knockback_resistance": {
-        "value": 0.5
+        "value": 0.6
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 4,
@@ -382,6 +382,8 @@
         "priority": 8,
         "look_distance": 6.0,
         "probability": 0.02
+      },
+      "minecraft:balloonable": {
       },
       "minecraft:physics": {
       },

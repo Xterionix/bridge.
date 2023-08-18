@@ -16,7 +16,7 @@ export async function loadDependency(src: string) {
 	let latestTag: string
 	try {
 		const tags = await fetch(
-			'https://api.github.com/repos/bridge-core/data/tags'
+			'https://api.github.com/repos/Xterionix/data/tags'
 		).then(data => data.json())
 		latestTag = tags[0].name
 	} catch {}

@@ -1,25 +1,25 @@
 {
-  "format_version": "1.12",
-  "minecraft:recipe_shaped": {
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
     "description": {
     "identifier": "minecraft:tnt_minecart"
     },
-
-    
     "tags": [ "crafting_table" ],
-    "pattern": [
-      "A",
-      "B"
-    ],
-    "key": {
-      "A": {
+    "ingredients": [
+      {
         "item": "minecraft:tnt",
         "data": 0
       },
-      "B": {
+      {
         "item": "minecraft:minecart"
       }
-    },
+    ],
+	"unlock": [
+      {
+        "item": "minecraft:tnt",
+        "data": 0
+      }
+    ],
     "result": {
       "item": "minecraft:tnt_minecart"
     }

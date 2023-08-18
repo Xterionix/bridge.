@@ -166,11 +166,66 @@
           }
 
         },
+        "minecraft:interact": {
+          "interactions": [
+            {
+              "play_sounds": "armor.equip_generic",
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    {
+                      "none_of": [
+                        { "test": "has_equipment", "subject": "self", "domain": "inventory", "value": "leather_horse_armor" },
+                        { "test": "has_equipment", "subject": "self", "domain": "inventory", "value": "iron_horse_armor" },
+                        { "test": "has_equipment", "subject": "self", "domain": "inventory", "value": "golden_horse_armor" },
+                        { "test": "has_equipment", "subject": "self", "domain": "inventory", "value": "diamond_horse_armor" }
+                      ]
+                    },
+                    {
+                      "any_of": [
+                        { "test": "has_equipment", "subject": "player", "domain": "hand", "value": "leather_horse_armor" },
+                        { "test": "has_equipment", "subject": "player", "domain": "hand", "value": "iron_horse_armor" },
+                        { "test": "has_equipment", "subject": "player", "domain": "hand", "value": "golden_horse_armor" },
+                        { "test": "has_equipment", "subject": "player", "domain": "hand", "value": "diamond_horse_armor" }
+                      ]
+                    },
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_sneaking", "subject": "other", "value": false }
+                  ]
+                },
+                "target": "self"
+              },
+              "equip_item_slot": 1,
+              "interact_text": "action.interact.equiphorsearmor"
+            },
+            {
+              "play_sounds": "saddle",
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "has_equipment", "subject": "self", "domain": "inventory", "operator": "not", "value": "saddle" },
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "saddle" },
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_sneaking", "subject": "other", "value": false }
+                  ]
+                },
+                "target": "self"
+              },
+              "equip_item_slot": 0,
+              "interact_text": "action.interact.saddle"
+            }
+          ]
+        },
         "minecraft:inventory": {
           "inventory_size": 2,
           "container_type": "horse"
         },
         "minecraft:breedable": {
+          "parent_centric_attribute_blending": [
+            "minecraft:health",
+            "minecraft:movement",
+            "minecraft:horse.jump_strength"
+          ],
           "require_tame": true,
           "inherit_tamed": false,
           "breeds_with": [
@@ -195,7 +250,14 @@
             "golden_carrot",
             "golden_apple",
             "appleEnchanted"
-          ]
+          ],
+          "mutation_factor": {
+            "extra_variant": 0.2, // 1/5
+            "variant": 0.111 // ~1/9
+          },
+          "mutation_strategy": "random",
+          "random_variant_mutation_interval": [0, 7],
+          "random_extra_variant_mutation_interval": [0, 5]
         },
         "minecraft:behavior.tempt": {
           "priority": 5,
@@ -329,7 +391,12 @@
       "minecraft:hurt_on_condition": {
         "damage_conditions": [
           {
-            "filters": { "test": "in_lava", "subject": "self", "operator": "==", "value": true },
+            "filters": {
+              "test": "in_lava",
+              "subject": "self",
+              "operator": "==",
+              "value": true
+            },
             "cause": "lava",
             "damage_per_tick": 4
           }
@@ -540,6 +607,15 @@
         "add": {
           "component_groups": [
             "minecraft:horse_baby"
+          ]
+        }
+      },
+
+      "minecraft:spawn_adult": {
+        "add": {
+          "component_groups": [
+            "minecraft:horse_adult",
+            "minecraft:horse_wild"
           ]
         }
       },

@@ -4,8 +4,9 @@
     "description": {
       "identifier": "minecraft:pumpkin_pie"
     },
+
     "components": {
-      "minecraft:use_duration": 1.6,
+      "minecraft:use_duration": 32,
       "minecraft:food": {
         "nutrition": 8,
         "saturation_modifier": "low"

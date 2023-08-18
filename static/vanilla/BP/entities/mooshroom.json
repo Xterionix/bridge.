@@ -272,6 +272,24 @@
             },
             {
               "on_interact": {
+                "filters": { // torchflower
+                  "all_of": [
+                    { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "torchflower"},
+                    { "test" :  "is_family", "subject" : "other", "value" :  "player"},
+                    { "test": "is_variant", "subject": "self", "operator": "==", "value": 1},
+                    { "test": "is_mark_variant", "subject": "self", "operator": "!=", "value": 10}
+                  ]
+                },
+                "event": "minecraft:ate_torchflower",
+                "target": "self"
+              },
+              "use_item": true,
+              "play_sounds": "eat",
+              "particle_on_start": { "particle_type": "smoke", "particle_y_offset": 0.25, "particle_offset_towards_interactor": true },
+              "interact_text": "action.interact.feed"
+            },
+            {
+              "on_interact": {
                 "filters": {
                   "all_of": [
                     { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "shears"},
@@ -287,7 +305,8 @@
               "play_sounds": "shear",
               "spawn_items": { "table": "loot_tables/entities/mooshroom_shear.json" },
               "particle_on_start": { "particle_type": "largeexplode", "particle_y_offset": 0.25, "particle_offset_towards_interactor": true },
-              "interact_text": "action.interact.mooshear"
+              "interact_text": "action.interact.mooshear",
+              "vibration": "shear"
             },
             {
               "on_interact": {
@@ -306,7 +325,8 @@
               "play_sounds": "shear",
               "spawn_items": { "table": "loot_tables/entities/brown_mooshroom_shear.json" },
               "particle_on_start": { "particle_type": "largeexplode", "particle_y_offset": 0.25, "particle_offset_towards_interactor": true },
-              "interact_text": "action.interact.mooshear"
+              "interact_text": "action.interact.mooshear",
+              "vibration": "shear"
             },
             {
               "on_interact": {
@@ -389,6 +409,12 @@
       "minecraft:mooshroom_brown_fed_wither_rose": {
         "minecraft:mark_variant": {
           "value": 9
+        }
+      },
+
+      "minecraft:mooshroom_brown_fed_torchflower": {
+        "minecraft:mark_variant": {
+          "value": 10
         }
       },
        
@@ -646,6 +672,14 @@
         "add": {
           "component_groups": [
             "minecraft:mooshroom_brown_fed_wither_rose"
+          ]
+        }
+      },
+
+      "minecraft:ate_torchflower": {
+        "add": {
+          "component_groups": [
+            "minecraft:mooshroom_brown_fed_torchflower"
           ]
         }
       },

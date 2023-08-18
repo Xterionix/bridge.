@@ -4,7 +4,7 @@
     "description": {
       "identifier": "minecraft:iron_ore_feature"
     },
-    "count": 9,
+    "count": 10,
     "replace_rules": [
       {
         "places_block": "minecraft:iron_ore",

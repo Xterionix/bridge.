@@ -8,10 +8,10 @@ import { FileExplorerStorage } from './UI/Sidebar/FileExplorer'
 import { remote } from 'electron'
 import ProjectConfig from './Project/Config'
 
-export const WEB_APP_DATA = 'https://bridge-core.github.io/data/'
+export const WEB_APP_DATA = 'https://github.com/Xterionix/data'
 export const WEB_APP_PLUGINS = 'https://bridge-core.github.io/plugins/'
 export const DEPS_URLS = (version = 'latest') =>
-	`https://cdn.jsdelivr.net/npm/bridge-data@${version}/dist/`
+	`https://cdn.jsdelivr.net/npm/bridgex-data@${version}/dist/`
 export const DOC_URL = 'https://bedrock.dev/r/'
 export const DOC_URL_BETA = 'https://bedrock.dev/b/'
 export const DOC_LIST = [
@@ -28,6 +28,9 @@ export const DOC_LIST = [
 	'Animations',
 	'Entity Events',
 	'Recipes',
+	'Entity Timeline Events',
+	'Texture Sets',
+	'Volumes'
 ].sort()
 
 export { APP_VERSION }

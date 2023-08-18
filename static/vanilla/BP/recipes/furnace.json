@@ -1,11 +1,9 @@
 {
-  "format_version": "1.12",
+  "format_version": "1.20.10",
   "minecraft:recipe_shaped": {
     "description": {
-    "identifier": "minecraft:furnace"
-    },
-
-    
+      "identifier": "minecraft:furnace"
+    },  
     "tags": [ "crafting_table" ],
     "pattern": [
       "###",
@@ -14,11 +12,17 @@
     ],
     "key": {
       "#": {
-        "item": "minecraft:cobblestone"
+        "tag": "minecraft:stone_crafting_materials"
       }
     },
+	"unlock": [
+      {
+        "tag": "minecraft:stone_crafting_materials"
+      }
+    ],
     "result": {
       "item": "minecraft:furnace"
-    }
+    },
+    "priority": -1
   }
 }

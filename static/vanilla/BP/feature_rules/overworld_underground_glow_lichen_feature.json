@@ -3,7 +3,7 @@
   "minecraft:feature_rules": {
     "description": {
       "identifier": "minecraft:overworld_underground_glow_lichen_feature",
-      "places_feature": "minecraft:glow_lichen_feature"
+      "places_feature": "minecraft:underground_glow_lichen_feature"
     },
     "conditions": {
       "placement_pass": "after_underground_pass",
@@ -25,14 +25,14 @@
       ]
     },
     "distribution": {
-      "iterations": "Math.Random(40, 61)",
+      "iterations": "Math.Random(104, 157)",
       "x": {
         "distribution": "uniform",
         "extent": [ 0, 16 ]
       },
       "y": {
         "distribution": "uniform",
-        "extent": [ 0, 55 ]
+        "extent": [ -64, 256 ]
       },
       "z": {
         "distribution": "uniform",

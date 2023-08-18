@@ -1,0 +1,8 @@
+{
+    "set": {},
+    "define": {
+        "keywords": [ "minecraft", "scenes" ],
+        "titles": [ "format_version"],
+        "symbols": [ "buttons", "on_open_commands", "on_close_commands" ]
+    }
+}

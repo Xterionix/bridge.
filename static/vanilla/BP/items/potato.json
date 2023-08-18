@@ -4,14 +4,16 @@
     "description": {
       "identifier": "minecraft:potato"
     },
+
     "components": {
-      "minecraft:use_duration": 1.6,
+      "minecraft:use_duration": 32,
+
       "minecraft:food": {
         "nutrition": 1,
         "saturation_modifier": "low"
       },
-      "minecraft:block_placer": {
-        "block": "minecraft:potatoes"
+      "minecraft:seed": {
+        "crop_result": "potatoes"
       }
     }
   }

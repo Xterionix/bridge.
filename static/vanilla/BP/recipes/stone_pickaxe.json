@@ -1,11 +1,9 @@
 {
-  "format_version": "1.12",
+  "format_version": "1.20.10",
   "minecraft:recipe_shaped": {
     "description": {
-    "identifier": "minecraft:stone_pickaxe"
-    },
-
-    
+      "identifier": "minecraft:stone_pickaxe"
+    },   
     "tags": [ "crafting_table" ],
     "pattern": [
       "XXX",
@@ -17,11 +15,17 @@
         "item": "minecraft:stick"
       },
       "X": {
-        "item": "minecraft:cobblestone"
+        "tag": "minecraft:stone_tool_materials"
       }
     },
+	"unlock": [
+      {
+        "tag": "minecraft:stone_tool_materials"
+      }
+    ],
     "result": {
       "item": "minecraft:stone_pickaxe"
-    }
+    },
+    "priority": -1
   }
 }

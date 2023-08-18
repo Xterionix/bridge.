@@ -9,7 +9,9 @@ import { APP_VERSION } from '../constants'
 interface Module {
 	type: string
 	uuid: string
-	version: [number, number, number]
+	version: [number, number, number],
+	entry?: string,
+	language?: string
 }
 interface Header {
 	name: string
@@ -40,7 +42,8 @@ export default class Manifest {
 		type: 'resources' | 'data',
 		client_data?: boolean,
 		dependency?: Dependency,
-		targetProjectVersion?: string
+		targetProjectVersion?: string,
+		scripting?: boolean
 	) {
 		if (type === 'resources') {
 			this.header = {
@@ -69,6 +72,8 @@ export default class Manifest {
 			},
 		]
 
+		if (scripting) this.addScripting()
+
 		if (client_data) this.addClientData()
 
 		if (dependency !== undefined) {
@@ -81,6 +86,21 @@ export default class Manifest {
 				bridge: [appVersion],
 			},
 		}
+	}
+
+
+	addScripting() {
+		Manifest.addScripting(this)
+	}
+
+	static addScripting(manifest: Manifest) {
+		manifest.modules.push({
+			type: 'script',
+			uuid: uuidv4(),
+			version: [1,0,0],
+			language: 'javascript',
+			entry: "scripts/index.js"
+		})
 	}
 
 	addClientData() {

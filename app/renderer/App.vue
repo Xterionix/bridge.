@@ -1,12 +1,10 @@
 <template>
-	<v-app
-		:style="{
-			background: $vuetify.theme.themes[theme_variant].background,
-			fontSize: $store.state.Settings.ui_font_size || '14px',
-			fontFamily:
-				$store.state.Settings.ui_font_family || 'Roboto, sans-serif',
-		}"
-	>
+	<v-app :style="{
+		background: $vuetify.theme.themes[theme_variant].background,
+		fontSize: $store.state.Settings.ui_font_size || '14px',
+		fontFamily:
+			$store.state.Settings.ui_font_family || 'Roboto, sans-serif',
+	}">
 		<Toolbar />
 		<SidebarNavigation />
 
@@ -15,30 +13,18 @@
 				<v-col v-if="isSidebarOpen" cols="2">
 					<SidebarMain />
 				</v-col>
-				<v-col
-					@click="setSplitScreen(false)"
-					:style="
-						`border-right: 1px solid ${
-							is_dark_mode
-								? 'rgba(255, 255, 255, 0.12)'
-								: 'rgba(0, 0, 0, 0.12)'
-						} !important;`
-					"
-					:cols="
-						5 +
-							5 * !has_split_screen +
-							(1 + 1 * !has_split_screen) * !isSidebarOpen
-					"
-					ref="file_container"
-				>
+				<v-col @click="setSplitScreen(false)" :style="`border-right: 1px solid ${is_dark_mode
+						? 'rgba(255, 255, 255, 0.12)'
+						: 'rgba(0, 0, 0, 0.12)'
+					} !important;`
+					" :cols="5 +
+		5 * !has_split_screen +
+		(1 + 1 * !has_split_screen) * !isSidebarOpen
+		" ref="file_container">
 					<EditorShellTabSystem />
 					<EditorShellContentManager />
 				</v-col>
-				<v-col
-					@click="setSplitScreen(true)"
-					v-if="has_split_screen"
-					:cols="5 + 1 * !isSidebarOpen"
-				>
+				<v-col @click="setSplitScreen(true)" v-if="has_split_screen" :cols="5 + 1 * !isSidebarOpen">
 					<EditorShellTabSystem :split_screen="true" />
 					<EditorShellContentManager :split_screen="true" />
 				</v-col>
@@ -153,9 +139,8 @@ export default {
 			this.$vuetify.theme.dark = to
 		},
 		project_name(to) {
-			document.head.getElementsByTagName('title')[0].innerText = `${
-				to ? to + ' - ' : ''
-			}bridge.`
+			document.head.getElementsByTagName('title')[0].innerText = `${to ? to + ' - ' : ''
+				}bridge.`
 		},
 	},
 	data() {
@@ -168,14 +153,14 @@ export default {
 	},
 	methods: {
 		openTwitter() {
-			shell.openExternal('https://twitter.com/solvedDev')
+			shell.openExternal('https://twitter.com/solvedDev');
 		},
 		updateSplitScreen() {
 			this.has_split_screen =
 				TabSystem.getCurrentProjects(true).length > 0
 		},
 		setSplitScreen(val) {
-			TabSystem.split_screen_active = val
+			TabSystem.split_screen_active = val;
 		},
 	},
 }
@@ -189,9 +174,11 @@ html {
 	overflow: hidden;
 	overscroll-behavior: contain;
 }
+
 body {
 	overflow: unset;
 }
+
 * {
 	outline-color: var(--v-primary-base);
 }
@@ -201,9 +188,11 @@ body {
 	width: 6px;
 	height: 6px;
 }
+
 *::-webkit-scrollbar-track {
 	box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.5);
 }
+
 *::-webkit-scrollbar-thumb {
 	background-color: rgba(0, 0, 0, 0.35);
 	box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.4);
@@ -218,15 +207,18 @@ body {
 	user-select: none;
 }
 
-v-application--wrap > main.v-content {
+v-application--wrap>main.v-content {
 	padding-left: 60px !important;
 }
+
 .v-application .subtitle-1 {
 	font-family: unset !important;
 }
+
 .v-system-bar {
 	padding-right: 0;
 }
+
 .v-system-bar .v-icon {
 	margin: 0;
 }
@@ -235,6 +227,7 @@ v-application--wrap > main.v-content {
 .small-list .v-list-item {
 	min-height: 28px !important;
 }
+
 .json-input-suggestions .v-list-item__content,
 .small-list .v-list-item__content {
 	padding: 4px 0 !important;

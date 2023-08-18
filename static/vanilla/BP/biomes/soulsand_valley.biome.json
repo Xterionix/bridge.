@@ -11,7 +11,7 @@
         "temperature": 2.0,
         "ash": 0.05
       },
-      "minecraft:nether_generation_rules": {
+      "minecraft:multinoise_generation_rules": {
         "target_temperature": 0.0,
         "target_humidity": -0.5,
         "target_altitude": 0.0,

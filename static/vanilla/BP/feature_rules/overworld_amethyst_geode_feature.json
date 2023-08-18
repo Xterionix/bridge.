@@ -28,12 +28,12 @@
       "iterations": 1,
       "scatter_chance": {
         "numerator": 1,
-        "denominator": 53
+        "denominator": 24
       },
       "x": 0,
       "y": {
         "distribution": "uniform",
-        "extent": [ 6, 47 ]
+        "extent": [ -58, 30 ]
       },
       "z": 0
     }

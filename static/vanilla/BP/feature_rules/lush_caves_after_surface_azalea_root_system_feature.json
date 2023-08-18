@@ -9,19 +9,21 @@
       "placement_pass": "after_surface_pass",
       "minecraft:biome_filter": [
         {
-          "test": "has_biome_tag", "operator": "==", "value": "lush_caves"
+          "test": "has_biome_tag",
+          "operator": "==",
+          "value": "lush_caves"
         }
       ]
     },
     "distribution": {
-      "iterations": "Math.Random(0, 2)",
+      "iterations": "Math.Random(1, 2)",
       "x": {
         "distribution": "uniform",
         "extent": [ 0, 16 ]
       },
       "y": {
         "distribution": "uniform",
-        "extent": [ 0, 60 ]
+        "extent": [ -64, 256 ]
       },
       "z": {
         "distribution": "uniform",

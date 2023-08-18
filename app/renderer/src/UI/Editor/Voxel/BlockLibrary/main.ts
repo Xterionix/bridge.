@@ -119,6 +119,9 @@ export async function loadVanillaBlocks() {
 		)
 	}
 	const loadFromMap = (texture: string) => {
+
+		if (!texture_data[texture]) return;
+
 		let data = texture_data[texture].textures
 		let overlayColor
 

@@ -13,13 +13,11 @@ import { getFormatVersions } from '../src/autoCompletions/components/VersionedTe
 
 export default class CreateProjectWindow extends ContentWindow {
 	constructor(create_bp = true, cb) {
-		const DEFAULT_TEXT = `${
-			create_bp ? 'Projects' : 'Resource packs'
-		} are stored directly inside the "${
-			create_bp
+		const DEFAULT_TEXT = `${create_bp ? 'Projects' : 'Resource packs'
+			} are stored directly inside the "${create_bp
 				? 'development_behavior_packs'
 				: 'development_resource_packs'
-		}" folder.\n\n`
+			}" folder.\n\n`
 
 		super({
 			display_name: create_bp ? 'New Project' : 'New Resource Pack',
@@ -45,9 +43,8 @@ export default class CreateProjectWindow extends ContentWindow {
 						if (val === '') {
 							this.content[0].color = 'error'
 							this.content[2].color = 'error'
-							this.content[2].text = `Please enter a valid ${
-								create_bp ? 'project' : 'resource pack'
-							} name!`
+							this.content[2].text = `Please enter a valid ${create_bp ? 'project' : 'resource pack'
+								} name!`
 							this.actions[1].is_disabled = true
 							this.update({
 								content: this.content,
@@ -82,9 +79,8 @@ export default class CreateProjectWindow extends ContentWindow {
 						if (val === '') {
 							this.content[1].color = 'error'
 							this.content[2].color = 'error'
-							this.content[2].text = `Please enter a valid ${
-								create_bp ? 'project' : 'resource pack'
-							} description!`
+							this.content[2].text = `Please enter a valid ${create_bp ? 'project' : 'resource pack'
+								} description!`
 							this.actions[1].is_disabled = true
 							this.update({
 								content: this.content,
@@ -125,15 +121,23 @@ export default class CreateProjectWindow extends ContentWindow {
 					this.target_mc_version = val
 				},
 			},
+			{
+				type: 'switch',
+				color: 'primary',
+				text: 'Enable Scripting',
+				action: val => {
+					this.enablescripting = val
+				},
+			},
 			create_bp
 				? {
-						type: 'switch',
-						color: 'primary',
-						text: 'Register client data',
-						action: val => {
-							this.client_data = val
-						},
-				  }
+					type: 'switch',
+					color: 'primary',
+					text: 'Register client data',
+					action: val => {
+						this.client_data = val
+					},
+				}
 				: {},
 		]
 		this.actions = [
@@ -162,15 +166,15 @@ export default class CreateProjectWindow extends ContentWindow {
 	createProject(create_bp, cb) {
 		if (this.input == '' || this.des == '') {
 			this.content[2].color = 'error'
-			this.content[2].text = `Please enter a valid ${
-				create_bp ? 'project' : 'resource pack'
-			} name and description!`
+			this.content[2].text = `Please enter a valid ${create_bp ? 'project' : 'resource pack'
+				} name and description!`
 			this.update({
 				content: this.content,
 			})
 
 			return
 		}
+
 		this.close()
 		let l_w = new LoadingWindow('project.').show()
 		let b_path = create_bp ? BASE_PATH : RP_BASE_PATH

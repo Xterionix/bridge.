@@ -9,6 +9,7 @@ const DATA = {
 	animation_controller: ['1.10.0'],
 	render_controller: ['1.8.0'],
 	particle: ['1.10.0'],
+	spawn_rule: ['1.8.0', '1.10.0']
 }
 
 //Delete previously found error
@@ -28,7 +29,7 @@ if (
 				//Grab the most recent defined format_version or use '1.13.0' to fix the error
 				Bridge.Node.edit(
 					(DATA[FileType] || [])[(DATA[FileType] || []).length - 1] ||
-						Version.ProjectTarget,
+					Version.ProjectTarget,
 					true
 				)
 				Tab.setUnsaved()

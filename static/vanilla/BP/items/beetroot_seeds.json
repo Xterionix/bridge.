@@ -4,9 +4,10 @@
     "description": {
       "identifier": "minecraft:beetroot_seeds"
     },
+
     "components": {
-      "minecraft:block_placer": {
-        "block": "minecraft:beetroot"
+      "minecraft:seed": {
+        "crop_result": "beetroot"
       }
     }
   }

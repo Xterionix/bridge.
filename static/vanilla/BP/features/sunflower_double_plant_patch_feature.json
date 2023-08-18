@@ -8,15 +8,15 @@
     "coordinate_eval_order": "zyx",
     "x": {
       "extent": [ -8, 8 ],
-      "distribution": "gaussian"
+      "distribution": "triangle"
     },
     "z": {
       "extent": [ -8, 8 ],
-      "distribution": "gaussian"
+      "distribution": "triangle"
     },
     "y": {
       "extent": [ -4, 4 ],
-      "distribution": "gaussian"
+      "distribution": "triangle"
     },
     "project_input_to_floor": false,
     "places_feature": "minecraft:sunflower_double_plant_feature"

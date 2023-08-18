@@ -4,7 +4,7 @@
     "description": {
       "identifier": "minecraft:tuff_feature"
     },
-    "count": 33,
+    "count": 64,
     "replace_rules": [
       {
         "places_block": {
@@ -13,6 +13,9 @@
         "may_replace": [
           {
             "name": "minecraft:stone"
+          },
+          {
+            "name": "minecraft:deepslate"
           }
         ]
       }

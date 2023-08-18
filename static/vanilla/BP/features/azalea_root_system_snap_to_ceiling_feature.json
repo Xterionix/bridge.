@@ -5,7 +5,7 @@
       "identifier": "minecraft:azalea_root_system_snap_to_ceiling_feature"
     },
     "feature_to_snap": "minecraft:azalea_root_system_feature",
-    "vertical_search_range": 12,
+    "vertical_search_range": 64,
     "surface": "ceiling"
   }
 }

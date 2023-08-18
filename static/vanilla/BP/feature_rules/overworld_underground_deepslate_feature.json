@@ -25,7 +25,7 @@
       ]
     },
     "distribution": {
-      "iterations": 10,
+      "iterations": 0, //This disables the placement of this feature.
       "coordinate_eval_order": "zyx",
       "x": {
         "distribution": "uniform",

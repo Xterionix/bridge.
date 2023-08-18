@@ -4,7 +4,7 @@ build/*
 !build/icons
 
 node_modules/*
-!node_modules/discord-rpc
+node_modules/discord-rpc
 
 npm-debug.log
 npm-debug.log.*

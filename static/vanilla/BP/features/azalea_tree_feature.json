@@ -53,7 +53,10 @@
       "minecraft:farmland",
       "minecraft:dirt_with_roots",
       "minecraft:moss_block",
-      "minecraft:clay"
+      "minecraft:clay",
+      "minecraft:mycelium",
+      "minecraft:mud",
+      "minecraft:muddy_mangrove_roots"
     ],
     "may_replace": [
       "minecraft:leaves",
@@ -62,13 +65,21 @@
       "minecraft:flowering_azalea",
       "minecraft:azalea_leaves",
       "minecraft:azalea_leaves_flowered",
+      "minecraft:mangrove_leaves",
       "minecraft:water",
       "minecraft:flowing_water",
-      "minecraft:air"
+      "minecraft:moss_carpet",
+      "minecraft:tallgrass",
+      "minecraft:grass",
+      "minecraft:air",
+      "minecraft:double_plant"
     ],
     "may_grow_through": [
       "minecraft:dirt",
-      "minecraft:grass"
+      "minecraft:grass",
+      "minecraft:moss_carpet",
+      "minecraft:tallgrass",
+      "minecraft:double_plant"
     ]
   }
 }

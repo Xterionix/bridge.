@@ -6,7 +6,6 @@
     },
     "replaceable_blocks": [
       "minecraft:clay",
-      "minecraft:moss_block",
       "minecraft:sand",
       "minecraft:gravel",
       "minecraft:dirt",
@@ -15,6 +14,9 @@
       "minecraft:grass",
       "minecraft:mycelium",
       "minecraft:stone",
+      "minecraft:deepslate",
+      "minecraft:tuff",
+      "minecraft:moss_block",
       "minecraft:cave_vines",
       "minecraft:cave_vines_body_with_berries",
       "minecraft:cave_vines_head_with_berries"

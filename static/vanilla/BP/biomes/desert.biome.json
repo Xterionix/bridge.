@@ -10,6 +10,13 @@
         "snow_accumulation": [ 0.0, 0.125 ],
         "temperature": 2.0
       },
+      "minecraft:multinoise_generation_rules": {
+        "target_temperature": 0.4,
+        "target_humidity": -0.4,
+        "target_altitude": 0.0,
+        "target_weirdness": 0.0,
+        "weight": 0.1
+      },
       "minecraft:overworld_height": {
         "noise_type": "lowlands"
       },

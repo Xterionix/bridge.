@@ -15,6 +15,7 @@ import {
 	createInputWindow,
 	createDropdownWindow,
 	createConfirmWindow,
+	createConfigWindow,
 } from '../Windows/Common/CommonDefinitions'
 import { trigger } from '../../AppCycle/EventSystem'
 
@@ -36,6 +37,31 @@ export default [
 				prefix,
 				'',
 				val => ProjectConfig.setPrefix(val)
+			)
+		},
+	},
+	{
+		icon: 'mdi-cog',
+		title: 'Project Config',
+		action: async () => {
+
+			createConfigWindow(
+				'Project Config',
+				'Namespace',
+				await getExperimentalStatus('holiday_creator_features'),
+				await getExperimentalStatus('custom_biomes'),
+				await getExperimentalStatus('upcoming_creator_features'),
+				await getExperimentalStatus('scripting'),
+				await getExperimentalStatus('molang_features'),
+				await getExperimentalStatus('experimental_cameras'),
+				async val => {
+					await ProjectConfig.setHolidayCreatorFeatures(val[0])
+					await ProjectConfig.setCustomBiome(val[1])
+					await ProjectConfig.setUpcomingCreatorFeatures(val[2])
+					await ProjectConfig.setScripting(val[3])
+					await ProjectConfig.setMolangFeatures(val[4])
+					await ProjectConfig.setExperimentalCameras(val[5])
+				}
 			)
 		},
 	},
@@ -144,7 +170,7 @@ export default [
 						}
 					)
 				},
-				() => {}
+				() => { }
 			)
 		},
 	},
@@ -162,8 +188,66 @@ export default [
 					trigger('bridge:findDefaultPack', true, true)
 					lw.close()
 				},
-				() => {}
+				() => { }
 			)
 		},
 	},
 ]
+
+type ExperimentalFeatures = 'holiday_creator_features' | 'custom_biomes' | 'upcoming_creator_features' | 'scripting' | 'molang_features' | 'experimental_cameras'
+
+async function getExperimentalStatus(name: ExperimentalFeatures) {
+
+	switch (name) {
+		case 'holiday_creator_features':
+
+			try {
+				return await ProjectConfig.holidayCreatorFeatures
+			} catch (e) {
+				return false;
+			}
+
+		case 'custom_biomes':
+
+			try {
+				return await ProjectConfig.customBiome
+			} catch (e) {
+				return false;
+			}
+
+		case 'upcoming_creator_features':
+
+			try {
+				return await ProjectConfig.upcomingCreatorFeatures
+			} catch (e) {
+				return false;
+			}
+
+		case 'scripting':
+
+			try {
+				return await ProjectConfig.scripting
+			} catch (e) {
+				return false;
+			}
+
+		case 'molang_features':
+
+			try {
+				return await ProjectConfig.molangFeatures
+			} catch (e) {
+				return false;
+			}
+
+		case 'experimental_cameras':
+
+			try {
+				return await ProjectConfig.experimentalCameras
+			} catch (e) {
+				return false;
+			}
+
+		default:
+			break;
+	}
+}

@@ -289,7 +289,7 @@ export default class SettingsWindow extends TabWindow {
 				new ReactiveDropdown(
 					this,
 					'remote_data_version',
-					fetch('https://api.github.com/repos/bridge-core/data/tags')
+					fetch('https://api.github.com/repos/Xterionix/data/tags')
 						.then(data => data.json())
 						.then(tags =>
 							['latest'].concat(tags.map((tag: any) => tag.name))

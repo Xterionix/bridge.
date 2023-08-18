@@ -1,10 +1,9 @@
 {
-  "format_version": "1.12",
+  "format_version": "1.20.10",
   "minecraft:recipe_shaped": {
     "description": {
-    "identifier": "minecraft:grindstone"
+      "identifier": "minecraft:grindstone"
     },
-
     "tags": [ "crafting_table" ],
     "pattern": [
       "|_|",
@@ -15,15 +14,22 @@
           "item": "minecraft:stick"
       },
       "#": {
-        "item": "minecraft:planks"
+        "tag": "minecraft:planks"
       },
       "_": {
         "item": "minecraft:double_stone_slab4",
         "data": 2
       }
     },
+	"unlock": [
+      {
+        "item": "minecraft:double_stone_slab4",
+        "data": 2
+      }
+    ],
     "result": {
       "item": "minecraft:grindstone"
-    }
+    },
+    "priority": -1
   }
 }

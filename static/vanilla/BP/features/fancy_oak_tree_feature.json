@@ -47,6 +47,9 @@
     "may_grow_on": [
       "minecraft:dirt",
       "minecraft:grass",
+      "minecraft:mycelium",
+      "minecraft:mud",
+      "minecraft:muddy_mangrove_roots",
       // Block aliases sure would be sweet
       {
         "name": "minecraft:dirt",
@@ -105,6 +108,9 @@
     ],
     "may_replace": [
       "minecraft:air",
+      "minecraft:mangrove_leaves",
+      "minecraft:azalea_leaves",
+      "minecraft:azalea_leaves_flowered",
       {
         "name": "minecraft:leaves",
         "states": {

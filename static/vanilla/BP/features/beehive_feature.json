@@ -7,7 +7,7 @@
     "places_block": {
       "name": "minecraft:bee_nest",
       "states": {
-        "facing_direction": 3
+        "direction": 0
       }
     },
     "enforce_survivability_rules": true,
@@ -27,6 +27,12 @@
           "states": {
             "old_leaf_type": "birch"
           }
+        },
+        {
+          "name": "minecraft:mangrove_leaves"
+        },
+        {
+          "name": "minecraft:cherry_leaves"
         }
       ],
       "west": [
@@ -41,6 +47,12 @@
           "states": {
             "old_log_type": "birch"
           }
+        },
+        {
+          "name": "minecraft:mangrove_roots"
+        },
+        {
+          "name": "minecraft:cherry_log"
         }
       ],
       "north": [
@@ -55,6 +67,12 @@
           "states": {
             "old_log_type": "birch"
           }
+        },
+        {
+          "name": "minecraft:mangrove_roots"
+        },
+        {
+          "name": "minecraft:cherry_log"
         }
       ],
       "east": [
@@ -69,6 +87,12 @@
           "states": {
             "old_log_type": "birch"
           }
+        },
+        {
+          "name": "minecraft:mangrove_roots"
+        },
+        {
+          "name": "minecraft:cherry_log"
         }
       ],
       "south": "minecraft:air"

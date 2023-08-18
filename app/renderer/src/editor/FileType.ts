@@ -130,6 +130,7 @@ export default class FileType {
 				if (file.file_creator !== undefined) {
 					//Load from dedicated file
 					if (typeof file.file_creator === 'string')
+		
 						acc.push({
 							target_version: file.target_version,
 							rp_definition: file.rp_definition,

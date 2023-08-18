@@ -52,7 +52,14 @@
 				class="py-2"
 			/>
 			<div class="line mt-4" />
-			<p class="pt-2">
+			<v-switch v-model="enableholidayfeatures" label="Holiday Creator Features"></v-switch>
+			<v-switch v-model="enablecustombiomes" label="Custom Biomes"></v-switch>
+			<v-switch v-model="enableupcomingcreatorfeatures" label="Upcoming Creator Features"></v-switch>
+			<v-switch v-model="enablescripting" label="Beta APIs"></v-switch>
+			<v-switch v-model="enablemolangfeatures" label="Molang Features"></v-switch>
+			<v-switch v-model="enableexperimentalcameras" label="Experimental Cameras"></v-switch>
+			<div class="line mt-4"></div>
+			<!-- <p class="pt-2">
 				Client Data must be toggled if you want to use client scripts
 				with the experimental scripting API.
 			</p>
@@ -60,7 +67,7 @@
 				v-model="registerClientData"
 				label="Register Client Data"
 			/>
-			<div class="line mt-4" />
+			<div class="line mt-4" /> -->
 			<p class="pt-2">
 				Projects are stored directly inside the
 				"development_behavior_packs" folder.
@@ -102,6 +109,7 @@ import { getFormatVersions } from '../../../../../autoCompletions/components/Ver
 import { createInformationWindow } from '../../../Common/CommonDefinitions'
 import { createErrorNotification } from '../../../../../AppCycle/Errors'
 import { writeJSON } from '../../../../../Utilities/JsonFS'
+import { BridgeCore } from '../../../../../bridgeCore/main'
 
 export default {
 	name: 'CreateBP',
@@ -141,7 +149,7 @@ export default {
 				} else if (err) {
 					lW.hide()
 					createErrorNotification(err)
-					return
+					return;
 				}
 			}
 
@@ -149,11 +157,19 @@ export default {
 				path.join(BASE_PATH, this.projectName, '/manifest.json'),
 				new Manifest(
 					'data',
-					this.registerClientData,
+					false,
 					undefined,
-					this.targetVersion
+					this.targetVersion,
+					this.enablescripting
 				).get()
 			)
+
+			if (this.enablescripting) {
+
+				await fs.mkdir(path.join(BASE_PATH, this.projectName, 'scripts/packs'), {recursive: true});
+				await fs.writeFile(path.join(BASE_PATH, this.projectName, 'scripts/index.js'), '')
+
+			}
 
 			//Create config file
 			await writeJSON(
@@ -161,6 +177,12 @@ export default {
 				{
 					prefix: this.projectNamespace,
 					formatVersion: this.targetVersion,
+					holidayCreatorFeatures: this.enableholidayfeatures,
+					customBiomes: this.enablecustombiomes,
+					upcomingCreatorFeatures: this.enableupcomingcreatorfeatures,
+					scripting: this.enablescripting,
+					molangFeatures: this.enablemolangfeatures,
+					experimentalCameras: this.enableexperimentalcameras
 				}
 			)
 

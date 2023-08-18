@@ -1,5 +1,5 @@
 {
-  "format_version": "1.16.0",
+  "format_version": "1.20.10",
   "minecraft:entity": {
     "description": {
       "identifier": "minecraft:zombie_villager_v2",
@@ -52,6 +52,11 @@
         }
       },
 
+      "can_break_doors": {
+        "minecraft:annotation.break_door": {
+        }
+      },
+
       "from_abandoned_village": {
         "minecraft:navigation.walk": {
           "is_amphibious": true,
@@ -71,6 +76,7 @@
           "into": "minecraft:villager_v2",
           "begin_transform_sound": "remedy",
           "transformation_sound": "unfect",
+          "drop_equipment":  true,
           "keep_level": true,
           "delay": {
             "value": 100,
@@ -309,8 +315,6 @@
         "can_break_doors": true,
         "avoid_sun": false
       },
-      "minecraft:annotation.break_door": {
-      },
       "minecraft:movement.basic": {
       },
       "minecraft:jump.static": {
@@ -354,6 +358,7 @@
       "minecraft:nameable": {
       },
       "minecraft:shareables": {
+        "singular_pickup": true,
         "items": [
           {
             "item": "minecraft:netherite_sword",
@@ -603,7 +608,10 @@
         "goal_radius": 2,
         "speed_multiplier": 1.0,
         "pickup_based_on_chance": true,
-        "can_pickup_any_item": true
+        "can_pickup_any_item": true,
+        "excluded_items": [
+          "minecraft:glow_ink_sac"
+        ]
       },
       "minecraft:behavior.random_stroll": {
         "priority": 9,
@@ -774,6 +782,19 @@
           },
           {
             "trigger": "minecraft:add_biome_and_skin"
+          },
+          {
+            "randomize": [
+              {
+                "weight": 10,
+                "add": {
+                  "component_groups": [ "can_break_doors" ]
+                }
+              },
+              {
+                "weight": 90
+              }
+            ]
           }
         ]
       },

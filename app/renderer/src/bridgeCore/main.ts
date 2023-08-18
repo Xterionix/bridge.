@@ -22,6 +22,8 @@ import AnimationHandler from './AnimationHandler'
 import AnimationControllerHandler from './AnimationControllerHandler'
 import { createInformationWindow } from '../UI/Windows/Common/CommonDefinitions'
 import BlockHandler from './BlockHandler'
+import { on } from '../AppCycle/EventSystem'
+import ProjectConfig from '../Project/Config'
 
 export interface OnSaveData {
 	file_path: string

@@ -4,9 +4,10 @@
     "description": {
       "identifier": "minecraft:wheat_seeds"
     },
+
     "components": {
-      "minecraft:block_placer": {
-        "block": "minecraft:wheat"
+      "minecraft:seed": {
+        "crop_result": "wheat" // wheatCrops
       }
     }
   }

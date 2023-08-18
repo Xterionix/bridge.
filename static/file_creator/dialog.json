@@ -1,0 +1,34 @@
+{
+    "icon": "mdi-chat-processing",
+    "title": "Dialog",
+    "extension": "json",
+    "path": "dialogue/",
+    "templates": {
+        "Blank Dialog": {
+            "format_version": {},
+            "minecraft:npc_dialogue": {
+                "scenes": [
+                    {
+                        "scene_tag": "",
+                        "npc_name": "",
+                        "text": "",
+                        "buttons": [
+                            {
+                                "name": "",
+                                "commands": [
+                                    ""
+                                ]
+                            }
+                        ],
+                        "on_open_commands": [
+                            ""
+                        ],
+                        "on_close_commands": [
+                            ""
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -31,7 +31,10 @@
         "denominator": 64
       },
       "x": 0,
-      "y": 0,
+      "y": {
+        "distribution": "uniform",
+        "extent": [ 0, 320 ]
+      },
       "z": 0
     }
   }

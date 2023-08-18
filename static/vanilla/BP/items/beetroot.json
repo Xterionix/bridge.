@@ -4,8 +4,9 @@
     "description": {
       "identifier": "minecraft:beetroot"
     },
+
     "components": {
-      "minecraft:use_duration": 1.6,
+      "minecraft:use_duration": 32,
       "minecraft:food": {
         "nutrition": 1,
         "saturation_modifier": "normal"

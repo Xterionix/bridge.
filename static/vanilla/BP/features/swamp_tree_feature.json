@@ -16,7 +16,7 @@
         }
       },
       "can_be_submerged": {
-        "max_depth": 1
+        "max_depth": 2
       }
     },
     "canopy": {

@@ -1,8 +1,8 @@
 {
-  "format_version": "1.16",
+  "format_version": "1.20.10",
   "minecraft:recipe_shaped": {
     "description": {
-    "identifier": "minecraft:soul_torch"
+      "identifier": "minecraft:soul_torch"
     },
     "tags": [ "crafting_table" ],
     "pattern": [
@@ -12,18 +12,24 @@
     ],
     "key": {
       ".": {
-        "item": "minecraft:coal"
+        "tag": "minecraft:coals"
       },
       "|": {
         "item": "minecraft:stick"
       },
       "#": {
-        "item": "minecraft:soul_soil_block"
+        "tag": "minecraft:soul_fire_base_blocks"
       }
     },
+	"unlock": [
+      {
+        "tag": "minecraft:soul_fire_base_blocks"
+      }
+    ],
     "result": {
       "item": "minecraft:soul_torch",
       "count": 4
-    }
+    },
+    "priority": -1
   }
 }

@@ -1,10 +1,7 @@
 <template>
-	<v-layout
-		:style="`padding: 10em; height: ${available_height}px;`"
-		@dblclick="createFile"
-		column
-	>
-		<h1>Welcome to bridge.</h1>
+	<v-layout :style="`padding: 10em; height: ${available_height}px;`" @dblclick="createFile" column>
+		<h1>Welcome to bridgex.</h1>
+		<h4>A fork of bridge. by Xterionix</h4>
 		<div>
 			<br />
 			<p>Creating Minecraft addons has never been more convenient!</p>
@@ -14,9 +11,7 @@
 					<span>Syntax highlighting</span>
 				</li>
 				<li>
-					<v-icon color="accent" small
-						>mdi-format-list-bulleted</v-icon
-					>
+					<v-icon color="accent" small>mdi-format-list-bulleted</v-icon>
 					<span>Rich auto-completions</span>
 				</li>
 				<li>
@@ -304,6 +299,7 @@ li {
 	list-style-type: none;
 	text-align: center;
 }
+
 span {
 	margin-left: 4px;
 }

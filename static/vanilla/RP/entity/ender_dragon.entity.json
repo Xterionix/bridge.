@@ -1,15 +1,11 @@
 {
-  "format_version": "1.8.0",
+  "format_version": "1.10.0",
   "minecraft:client_entity": {
     "description": {
       "identifier": "minecraft:ender_dragon",
-      "textures": {
-        "default": "textures/entity/dragon/dragon",
-        "exploding": "textures/entity/dragon/dragon_exploding",
-        "beam": "textures/entity/endercrystal/endercrystal_beam"
-      },
-      "geometry": {
-        "default": "geometry.dragon"
+      "spawn_egg": {
+        "base_color": "#1c1c1c",
+        "overlay_color": "#e079fa"
       }
     }
   }

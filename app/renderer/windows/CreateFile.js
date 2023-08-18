@@ -104,23 +104,23 @@ class FileContent {
 				content: [
 					is_experimental
 						? [
-								{
-									type: 'icon',
-									text: 'mdi-test-tube',
-									color: 'purple',
-									tooltip: 'Experimental Gameplay',
-								},
-						  ]
+							{
+								type: 'icon',
+								text: 'mdi-test-tube',
+								color: 'purple',
+								tooltip: 'Experimental Gameplay',
+							},
+						]
 						: [],
 					is_custom_syntax
 						? [
-								{
-									type: 'icon',
-									text: 'mdi-code-braces',
-									color: 'purple',
-									tooltip: 'Custom Syntax',
-								},
-						  ]
+							{
+								type: 'icon',
+								text: 'mdi-code-braces',
+								color: 'purple',
+								tooltip: 'Custom Syntax',
+							},
+						]
 						: [],
 					{
 						type: 'big-header',
@@ -170,7 +170,7 @@ class FileContent {
 						} else if (add_content.action !== undefined) {
 							throw new Error(
 								'Unknown add_content.action type: ' +
-									add_content.action.type
+								add_content.action.type
 							)
 						}
 					},
@@ -180,11 +180,10 @@ class FileContent {
 	}
 
 	getPath(val = this.curr_input, ext = this.ext, expand = this.expand_path) {
-		return `${
-			this.use_rp_path
-				? Store.state.Explorer.project.resource_pack
-				: Store.state.Explorer.project.explorer
-		}/${expand}${val}.${ext}`
+		return `${this.use_rp_path
+			? Store.state.Explorer.project.resource_pack
+			: Store.state.Explorer.project.explorer
+			}/${expand}${val}.${ext}`
 	}
 
 	getFullPath(
@@ -224,6 +223,7 @@ export default class CreateFileWindow extends ContentWindow {
 						!is_hidden && (show_rp ? rp_definition : !rp_definition)
 				)
 				.sort(({ title: t1 }, { title: t2 }) => t1.localeCompare(t2))
+
 		else
 			FILE_DATA = FileType.getFileCreators()
 				.filter(({ is_hidden }) => !is_hidden)

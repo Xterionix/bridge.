@@ -14,14 +14,14 @@
       ]
     },
     "distribution": {
-      "iterations": 15,
+      "iterations": 46,
       "x": {
         "distribution": "uniform",
         "extent": [ 0, 16 ]
       },
       "y": {
         "distribution": "uniform",
-        "extent": [ 0, 60 ]
+        "extent": [ -64, 256 ]
       },
       "z": {
         "distribution": "uniform",

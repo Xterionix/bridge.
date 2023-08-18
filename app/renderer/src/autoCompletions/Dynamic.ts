@@ -28,14 +28,14 @@ export function walkSync(
 	fs.readdirSync(dir).forEach(file => {
 		filelist = fs.statSync(path.join(dir, file)).isDirectory()
 			? walkSync(
-					path.join(dir, file),
-					relative,
-					path.join(relative_path, file),
-					filelist
-			  )
+				path.join(dir, file),
+				relative,
+				path.join(relative_path, file),
+				filelist
+			)
 			: (filelist ?? []).concat(
-					path.join(relative ? relative_path : dir, file)
-			  )
+				path.join(relative ? relative_path : dir, file)
+			)
 	})
 	return filelist
 }
@@ -73,7 +73,7 @@ export const DYNAMIC = {
 		},
 		is_not_active() {
 			return !BridgeCore.isActive()
-		},
+		}
 	},
 	plugins: {
 		block_custom_components() {
@@ -140,6 +140,18 @@ export const DYNAMIC = {
 				return []
 			}
 		},
+		// properties() {
+		// 	try {
+		// 		return Object.keys(
+		// 			TabSystem.getSelected()
+		// 				.content.get('#;bridge_node_skip;#/properties')
+		// 				.toJSON()
+		// 		)
+		// 	} catch (e) {
+		//		console.warn(e)
+		// 		return []
+		// 	}
+		// },
 		all_events() {
 			return LightningCache.getCompiledSync()?.entity?.events || []
 		},
@@ -167,6 +179,7 @@ export const DYNAMIC = {
 					.content.get('#;bridge_node_skip;#/description/properties')
 					.toJSON()
 			} catch (e) {
+				console.warn(e)
 				return {}
 			}
 		},
@@ -295,8 +308,8 @@ export const DYNAMIC = {
 						let tmp = e
 							.replace(
 								RP_BASE_PATH.replace(/\//g, '\\') +
-									Store.state.Explorer.project.resource_pack +
-									'\\',
+								Store.state.Explorer.project.resource_pack +
+								'\\',
 								''
 							)
 							.replace(/\\/g, '/')
@@ -319,8 +332,8 @@ export const DYNAMIC = {
 					let tmp = e
 						.replace(
 							RP_BASE_PATH.replace(/\//g, '\\') +
-								Store.state.Explorer.project.resource_pack +
-								'\\',
+							Store.state.Explorer.project.resource_pack +
+							'\\',
 							''
 						)
 						.replace(/\\/g, '/')
@@ -341,8 +354,8 @@ export const DYNAMIC = {
 					let tmp = e
 						.replace(
 							RP_BASE_PATH.replace(/\//g, '\\') +
-								Store.state.Explorer.project.resource_pack +
-								'\\',
+							Store.state.Explorer.project.resource_pack +
+							'\\',
 							''
 						)
 						.replace(/\\/g, '/')
@@ -363,8 +376,8 @@ export const DYNAMIC = {
 					let tmp = e
 						.replace(
 							RP_BASE_PATH.replace(/\//g, '\\') +
-								Store.state.Explorer.project.resource_pack +
-								'\\',
+							Store.state.Explorer.project.resource_pack +
+							'\\',
 							''
 						)
 						.replace(/\\/g, '/')
@@ -385,8 +398,8 @@ export const DYNAMIC = {
 					let tmp = e
 						.replace(
 							RP_BASE_PATH.replace(/\//g, '\\') +
-								Store.state.Explorer.project.resource_pack +
-								'\\',
+							Store.state.Explorer.project.resource_pack +
+							'\\',
 							''
 						)
 						.replace(/\\/g, '/')
@@ -406,8 +419,8 @@ export const DYNAMIC = {
 						let tmp = e
 							.replace(
 								RP_BASE_PATH.replace(/\//g, '\\') +
-									Store.state.Explorer.project.resource_pack +
-									'\\',
+								Store.state.Explorer.project.resource_pack +
+								'\\',
 								''
 							)
 							.replace(/\\/g, '/')
@@ -439,12 +452,12 @@ export const DYNAMIC = {
 	animation_controller_ids() {
 		try {
 			return LightningCache.getCompiledSync().animation_controller.ids
-		} catch (e) {}
+		} catch (e) { }
 	},
 	animation_ids() {
 		try {
 			return LightningCache.getCompiledSync().animation.ids
-		} catch (e) {}
+		} catch (e) { }
 	},
 	siblings() {
 		return PARENT_CONTEXT.toJSON()
@@ -474,8 +487,8 @@ export const DYNAMIC = {
 					return e
 						.replace(
 							BASE_PATH.replace(/\//g, '\\') +
-								Store.state.Explorer.project.explorer +
-								'\\',
+							Store.state.Explorer.project.explorer +
+							'\\',
 							''
 						)
 						.replace(/\\/g, '/')
@@ -492,8 +505,8 @@ export const DYNAMIC = {
 					return e
 						.replace(
 							BASE_PATH.replace(/\//g, '\\') +
-								Store.state.Explorer.project.explorer +
-								'\\',
+							Store.state.Explorer.project.explorer +
+							'\\',
 							''
 						)
 						.replace(/\\/g, '/')

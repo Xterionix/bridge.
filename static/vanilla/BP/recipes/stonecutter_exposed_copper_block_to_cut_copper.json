@@ -1,5 +1,5 @@
 {
-  "format_version": "1.12",
+  "format_version": "1.20.10",
   "minecraft:recipe_shapeless": {
     "description": {
     "identifier": "minecraft:stonecutter_exposed_copper_to_cut_copper"
@@ -13,8 +13,14 @@
         "item": "minecraft:exposed_copper"
       }
     ],
+    "unlock": [
+      {
+        "item": "minecraft:exposed_copper"
+      }
+    ],
     "result": {
-      "item": "minecraft:exposed_cut_copper"
+      "item": "minecraft:exposed_cut_copper",
+      "count": 4
     }
   }
   

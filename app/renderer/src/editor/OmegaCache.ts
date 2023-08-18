@@ -114,7 +114,7 @@ export default class OmegaCache {
 					)
 					.find(val => val !== undefined)
 			}
-		} catch (e) {}
+		} catch (e) { }
 	}
 
 	static isCacheFresh(
@@ -173,9 +173,9 @@ export default class OmegaCache {
 						if (err)
 							return reject(
 								'[O.CACHE] Error calling OmegaCache.save(..): ' +
-									err.message
+								err.message
 							)
-						else resolve()
+						// else resolve()
 						// console.log("Cached file " + file_path);
 					}
 				)
@@ -190,7 +190,7 @@ export default class OmegaCache {
 	}
 
 	static clear(file_path: string) {
-		fs.unlink(this.toCachePath(file_path), err => {})
+		fs.unlink(this.toCachePath(file_path), err => { })
 	}
 	static async rename(old_path: string, new_path: string) {
 		if (!this.mayBeCached(new_path)) return this.clear(old_path)
@@ -200,12 +200,12 @@ export default class OmegaCache {
 
 		try {
 			await fsp.mkdir(path.dirname(newCachePath), { recursive: true })
-		} catch {}
+		} catch { }
 
 		try {
 			await fsp.copyFile(oldCachePath, newCachePath)
 			this.clear(old_path)
-		} catch {}
+		} catch { }
 	}
 	static async duplicate(what: string, as: string) {
 		if (!this.mayBeCached(as)) return

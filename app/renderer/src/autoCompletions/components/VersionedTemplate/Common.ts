@@ -28,6 +28,7 @@ export function compileVersionedTemplate(template: IVersionedTemplate[]) {
 			(!$if || compileCondition($if)) &&
 			(!$legacy_if || Omega.walk($legacy_if))
 		) {
+
 			hasTruthyCondition = true
 
 			if (typeof $data === 'string') {
@@ -51,7 +52,7 @@ export function compileCondition(condition: string) {
 	return true
 }
 
-export function compileSingleCondition(condition: string) {
+export function compileSingleCondition(condition: any) {
 	let [v1, operator, v2] = condition.split(/\s+/)
 	if (v1 === '$format_version') v1 = getFormatVersion()
 	if (v2 === '$format_version') v2 = getFormatVersion()
@@ -60,7 +61,22 @@ export function compileSingleCondition(condition: string) {
 	if (v2 === '$project_target_version')
 		v2 = ProjectConfig.getFormatVersionSync()
 
-	if (!v1 || !v2) return false
+	if (v1 === "$holiday_creator_features") v1 = ProjectConfig.isHolidayCreatorFeaturesSync()
+	if (v1 === "$custom_biomes") v1 = ProjectConfig.isCustomBiomesSync()
+	if (v1 === "$upcoming_creator_features") v1 = ProjectConfig.isUpcomingCreatorFeaturesSync()
+	if (v1 === "$scripting") v1 = ProjectConfig.isScriptingSync()
+	if (v1 === "$molang_features") v1 = ProjectConfig.isMolangFeaturesSync()
+	if (v1 === "$experimental_cameras") v1 = ProjectConfig.isExperimentalCamerasSync()
+
+	if (v2 === "false") v2 = false
+	else if (v2 === "true") v2 = true
+	else if (typeof v1 == 'boolean' && !v2) v2 = true;
+
+	if ((!v1 || !v2) && typeof v1 == 'string') return false
+	if (typeof v1 != typeof v2) return false
+
+	if (typeof v1 == 'boolean') return (v1 === v2)
+
 	if (['>', '>=', '=', '<', '<='].includes(operator))
 		return compare(v1, v2, <CompareOperator>operator)
 	else throw new Error(`Undefined format_version operator: "${operator}"`)

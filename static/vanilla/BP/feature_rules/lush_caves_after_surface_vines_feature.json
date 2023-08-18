@@ -3,7 +3,7 @@
   "minecraft:feature_rules": {
     "description": {
       "identifier": "minecraft:lush_caves_after_surface_vines_feature",
-      "places_feature": "minecraft:fixup_vines_position_feature"
+      "places_feature": "minecraft:vines_single_face_feature"
     },
     "conditions": {
       "placement_pass": "after_surface_pass",
@@ -14,14 +14,14 @@
       ]
     },
     "distribution": {
-      "iterations": 127,
+      "iterations": 256,
       "x": {
         "distribution": "uniform",
         "extent": [ 0, 16 ]
       },
       "y": {
         "distribution": "uniform",
-        "extent": [ 0, 60 ]
+        "extent": [ -64, 256 ]
       },
       "z": {
         "distribution": "uniform",

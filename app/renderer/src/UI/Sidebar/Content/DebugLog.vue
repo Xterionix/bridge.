@@ -17,15 +17,8 @@
 
 			<v-tooltip color="tooltip" bottom>
 				<template v-slot:activator="{ on }">
-					<v-btn
-						:disabled="!logs"
-						icon
-						text
-						@click.stop="openSearchBrowser"
-						v-on="on"
-						small
-						class="toolbar-button"
-					>
+					<v-btn :disabled="!logs" icon text @click.stop="openSearchBrowser" v-on="on" small
+						class="toolbar-button">
 						<v-icon small>mdi-magnify</v-icon>
 					</v-btn>
 				</template>
@@ -35,20 +28,13 @@
 			<v-spacer />
 			<span style="font-size: 12px;" v-if="logs">
 				{{ page_number / PAGE_SIZE + 1 }}/{{
-				Math.ceil(logs.length / PAGE_SIZE)
+					Math.ceil(logs.length / PAGE_SIZE)
 				}}
 			</span>
 			<v-tooltip color="tooltip" bottom>
 				<template v-slot:activator="{ on }">
-					<v-btn
-						:disabled="!logs || page_number === 0"
-						icon
-						text
-						@click.stop="page_number -= PAGE_SIZE"
-						v-on="on"
-						small
-						class="toolbar-button"
-					>
+					<v-btn :disabled="!logs || page_number === 0" icon text @click.stop="page_number -= PAGE_SIZE" v-on="on"
+						small class="toolbar-button">
 						<v-icon small>mdi-chevron-left</v-icon>
 					</v-btn>
 				</template>
@@ -57,17 +43,8 @@
 
 			<v-tooltip color="tooltip" bottom>
 				<template v-slot:activator="{ on }">
-					<v-btn
-						:disabled="
-							!logs || page_number + PAGE_SIZE > logs.length
-						"
-						icon
-						text
-						@click.stop="page_number += PAGE_SIZE"
-						v-on="on"
-						small
-						class="toolbar-button"
-					>
+					<v-btn :disabled="!logs || page_number + PAGE_SIZE > logs.length
+						" icon text @click.stop="page_number += PAGE_SIZE" v-on="on" small class="toolbar-button">
 						<v-icon small>mdi-chevron-right</v-icon>
 					</v-btn>
 				</template>
@@ -78,36 +55,17 @@
 
 		<v-progress-linear v-if="logs === null" indeterminate />
 
-		<div
-			ref="log_container"
-			:style="
-				`height: ${sidebar_height}px; overflow-y: auto; padding: 4px;`
-			"
-			v-else
-		>
-			<v-card
-				color="expanded_sidebar"
-				v-for="({ tags, error }, i) in sliced_logs"
-				style="margin-bottom: 8px;"
-				:key="i"
-			>
-				<div
-					:style="
-						`padding: 16px 16px 8px; white-space: nowrap; overflow-x: auto;`
-					"
-					class="small-scrollbar"
-				>
-					<v-chip
-						v-for="(tag, i) in tags"
-						:key="i"
-						:color="getTagColor(tag)"
-						style="margin-right: 4px; margin-bottom: 2px;"
-						small
-						@click="openBrowser(tag)"
-					>
+		<div ref="log_container" :style="`height: ${sidebar_height}px; overflow-y: auto; padding: 4px;`
+			" v-else>
+			<v-card color="expanded_sidebar" v-for="({ tags, error }, i) in sliced_logs" style="margin-bottom: 8px;"
+				:key="i">
+				<div :style="`padding: 16px 16px 8px; white-space: nowrap; overflow-x: auto;`
+					" class="small-scrollbar">
+					<v-chip v-for="(tag, i) in tags" :key="i" :color="getTagColor(tag)"
+						style="margin-right: 4px; margin-bottom: 2px;" small @click="openBrowser(tag)">
 						<v-icon v-if="getTagIcon(tag)" left>
 							{{
-							getTagIcon(tag)
+								getTagIcon(tag)
 							}}
 						</v-icon>
 						{{ tag.toUpperCase() }}
@@ -194,6 +152,7 @@ export default {
 p {
 	padding: 0.5em;
 }
+
 .small-scrollbar::-webkit-scrollbar {
 	width: 3px;
 	height: 3px;
