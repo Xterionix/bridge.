@@ -471,7 +471,7 @@ export const DYNAMIC = {
 		},
 		animations() {
 			try {
-				return walkSync(path.join(CURRENT.RP_PATH, 'models'))
+				return walkSync(path.join(CURRENT.RP_PATH, 'animations'))
 					.map(e => {
 						let tmp = e
 							.replace(
