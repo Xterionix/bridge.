@@ -140,18 +140,17 @@ export const DYNAMIC = {
 				return []
 			}
 		},
-		// properties() {
-		// 	try {
-		// 		return Object.keys(
-		// 			TabSystem.getSelected()
-		// 				.content.get('#;bridge_node_skip;#/properties')
-		// 				.toJSON()
-		// 		)
-		// 	} catch (e) {
-		//		console.warn(e)
-		// 		return []
-		// 	}
-		// },
+		properties() {
+			try {
+				return Object.keys(
+					TabSystem.getSelected()
+						.content.get('#;bridge_node_skip;#/description/properties')
+						.toJSON()
+				)
+			} catch (e) {
+				return []
+			}
+		},
 		all_events() {
 			return LightningCache.getCompiledSync()?.entity?.events || []
 		},
