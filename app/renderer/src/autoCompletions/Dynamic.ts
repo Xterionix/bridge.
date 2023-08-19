@@ -447,6 +447,28 @@ export const DYNAMIC = {
 				return []
 			}
 		},
+		geometries() {
+			try {
+				return walkSync(path.join(CURRENT.RP_PATH, 'models'))
+					.map(e => {
+						let tmp = e
+							.replace(
+								RP_BASE_PATH.replace(/\//g, '\\') +
+								Store.state.Explorer.project.resource_pack +
+								'\\',
+								''
+							)
+							.replace(/\\/g, '/')
+						return `${path.dirname(tmp)}/${path.basename(
+							tmp,
+							path.extname(tmp)
+						)}`
+					})
+					.filter(e => e.endsWith('.json'))
+			} catch (e) {
+				return []
+			}
+		},
 	},
 	animation_controller_ids() {
 		try {
