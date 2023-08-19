@@ -449,45 +449,36 @@ export const DYNAMIC = {
 		},
 		geometries() {
 			try {
-				return walkSync(path.join(CURRENT.RP_PATH, 'models'))
-					.map(e => {
-						let tmp = e
-							.replace(
-								RP_BASE_PATH.replace(/\//g, '\\') +
-								Store.state.Explorer.project.resource_pack +
-								'\\',
-								''
-							)
-							.replace(/\\/g, '/')
-						return `${path.dirname(tmp)}/${path.basename(
-							tmp,
-							path.extname(tmp)
-						)}`
-					})
-					.filter(e => e.endsWith('.json'))
+				const arr = walkSync(path.join(CURRENT.RP_PATH, 'models/entity')).filter(e => e.endsWith('.json'));
+				const value = arr.flatMap(filepath => readJSONSync(filepath)["minecraft:geometry"].map((geo: any) => geo['description']['identifier']));
+				return value;
 			} catch (e) {
+				console.warn(e)
+				return []
+			}
+		},
+		block_geometries() {
+			try {
+				const arr = walkSync(path.join(CURRENT.RP_PATH, 'models/blocks')).filter(e => e.endsWith('.json'));
+				const value = arr.flatMap(filepath => readJSONSync(filepath)["minecraft:geometry"].map((geo: any) => geo['description']['identifier']));
+				return value;
+			} catch (e) {
+				console.warn(e)
 				return []
 			}
 		},
 		animations() {
 			try {
-				return walkSync(path.join(CURRENT.RP_PATH, 'animations'))
-					.map(e => {
-						let tmp = e
-							.replace(
-								RP_BASE_PATH.replace(/\//g, '\\') +
-								Store.state.Explorer.project.resource_pack +
-								'\\',
-								''
-							)
-							.replace(/\\/g, '/')
-						return `${path.dirname(tmp)}/${path.basename(
-							tmp,
-							path.extname(tmp)
-						)}`
+				let arr = walkSync(path.join(CURRENT.RP_PATH, 'animations')).filter(e => e.endsWith('.json'))
+				let value: string[] = []
+				arr.forEach(filepath => {
+					Object.keys(readJSONSync(filepath).animations).forEach(anim => {
+						value.push(anim)
 					})
-					.filter(e => e.endsWith('.json'))
+				})
+				return value;
 			} catch (e) {
+				console.warn(e)
 				return []
 			}
 		},
