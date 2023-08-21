@@ -77,6 +77,7 @@
     }
   },
   "dependencies": {
+    "@blitz/monaco-auto-import": "^1.0.7",
     "@mdi/font": "^5.0.45",
     "@ts-stack/markdown": "^1.0.0",
     "@types/color-convert": "^1.9.0",
