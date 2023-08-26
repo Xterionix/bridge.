@@ -3,17 +3,7 @@
     "title": "Script",
     "extension": "js",
     "path": "scripts/",
-    // "add_content": {
-    //     "add_location": [ -3, 1 ],
-    //     "type": "select",
-    //     "text": "server",
-    //     "options": [ "server",  "client" ],
-    //     "action": {
-    //         "type": "change_path",
-    //         "to": "'scripts/' + parameter + '/'"
-    //     }
-    // },
     "templates": {
-        "Empty Script": "import { world } from \"@minecraft/server\";"
+        "Empty Script": "import { world } from \"minecraft/server\";"
     }
 }
