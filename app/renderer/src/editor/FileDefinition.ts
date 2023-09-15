@@ -7,7 +7,6 @@ export interface FileDefinition {
 	file_viewer?: 'json' | 'text' | 'model'
 	player?: TPlayerType
 	rp_definition?: boolean
-
 	build_array_exceptions?: string[]
 	default_build_arrays?: boolean
 	documentation?: string | FileDocumentation
