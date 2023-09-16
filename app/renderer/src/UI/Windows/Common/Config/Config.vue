@@ -1,6 +1,6 @@
 <template>
 	<BaseWindow v-if="shouldRender" :windowTitle="windowTitle" :isVisible="isVisible" :hasMaximizeButton="false"
-		:isFullscreen="false" :width="440" :height="360" @closeWindow="onClose">
+		:isFullscreen="false" :width="440" :height="320" @closeWindow="onClose">
 
 		<template #default>
 			<v-row>

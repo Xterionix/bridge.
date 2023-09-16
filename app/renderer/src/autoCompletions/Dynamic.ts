@@ -453,7 +453,6 @@ export const DYNAMIC = {
 				const value = arr.flatMap(filepath => readJSONSync(filepath)["minecraft:geometry"].map((geo: any) => geo['description']['identifier']));
 				return value;
 			} catch (e) {
-				console.warn(e)
 				return []
 			}
 		},
@@ -463,7 +462,6 @@ export const DYNAMIC = {
 				const value = arr.flatMap(filepath => readJSONSync(filepath)["minecraft:geometry"].map((geo: any) => geo['description']['identifier']));
 				return value;
 			} catch (e) {
-				console.warn(e)
 				return []
 			}
 		},

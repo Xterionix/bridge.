@@ -1,4 +1,0 @@
-item.{{PROJ_PREFIX}}:{{IDENTIFIER}}_helmet={{IDENTIFIER_NAME}} Helmet
-item.{{PROJ_PREFIX}}:{{IDENTIFIER}}_chestplate={{IDENTIFIER_NAME}} Chestplate
-item.{{PROJ_PREFIX}}:{{IDENTIFIER}}_leggings={{IDENTIFIER_NAME}} Leggings
-item.{{PROJ_PREFIX}}:{{IDENTIFIER}}_boots={{IDENTIFIER_NAME}} Boots
