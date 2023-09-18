@@ -90,7 +90,7 @@ export class FileExplorer {
 			if (this.parent) this.parent.sort()
 
 			requestIdleCallback(() => this.load()) //Load more files and folders during CPU idle time
-		} catch (e) {}
+		} catch (e) { }
 	}
 	async load() {
 		this.children = await Promise.all(
@@ -184,9 +184,9 @@ export class FileExplorer {
 		if (this.name === 'cache') return []
 		return this.is_folder
 			? this.children
-					.map(c => c.getAllFiles())
-					.flat()
-					.filter(c => c !== undefined)
+				.map(c => c.getAllFiles())
+				.flat()
+				.filter(c => c !== undefined)
 			: [this.absolute_path]
 	}
 
@@ -222,14 +222,16 @@ export class FileExplorer {
 		)
 
 		await Promise.all([
-			OmegaCache.duplicate(
-				this.absolute_path,
-				newAbsolutePath
-			).catch(() => {}),
-			LightningCache.duplicate(this.absolute_path, newAbsolutePath),
+			// OmegaCache.duplicate(
+			// 	this.absolute_path,
+			// 	newAbsolutePath
+			// ).catch(() => { }),
+			// LightningCache.duplicate(this.absolute_path, newAbsolutePath),
 			JSONFileMasks.duplicate(this.absolute_path, newAbsolutePath),
 			fs.copyFile(this.absolute_path, newAbsolutePath),
 		])
+
+		console.log(this.absolute_path, newAbsolutePath)
 
 		this.parent.children.push(
 			new FileExplorer(
