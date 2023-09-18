@@ -733,19 +733,19 @@ export default class JSONTree {
 			this.children = c.array.map((child: any, index: number) =>
 				typeof child === 'object'
 					? new JSONTree(
-							`${index}`,
-							child.data ?? '',
-							this,
-							undefined,
-							child.open ?? false
-					  ).buildFromCache(child)
+						`${index}`,
+						child.data ?? '',
+						this,
+						undefined,
+						child.open ?? false
+					).buildFromCache(child)
 					: new JSONTree(
-							`${index}`,
-							child,
-							this,
-							undefined,
-							child.open ?? false
-					  )
+						`${index}`,
+						child,
+						this,
+						undefined,
+						child.open ?? false
+					)
 			)
 		return this
 	}

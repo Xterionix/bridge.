@@ -2,63 +2,101 @@ const compareVersions = require("compare-versions");
 const { Node, Tab, Version } = Bridge
 
 let fileFormatVersion = Bridge.GlobalNode.children[0].data;
-let projectTargetVersion = Version.ProjectTarget
+let projectTargetVersion = Version.ProjectTarget || '0.0'
 
 const releaseVersions = new Map()
 	.set('minecraft:crafting_table', '1.19.50')
 	.set('minecraft:display_name', '1.19.60')
-	.set('minecraft:rotation', '1.19.80')
 	.set('minecraft:placement_filter', '1.19.60')
-	.set('minecraft:pick_collision', '1.18.0')
-	.set('minecraft:aim_collision', '1.18.10')
 	.set('minecraft:selection_box', '1.19.60')
-	.set('entity_collision', '1.18.10')
+	.set('minecraft:collision_box', '1.19.50')
+	.set('minecraft:material_instance', '1.19.40')
+	.set('minecraft:geometry', '1.19.40')
+
+const renamedVersions = new Map()
+	.set('minecraft:pick_collision', '1.18.10')
+	.set('minecraft:aim_collision', '1.19.20')
+	.set('minecraft:entity_collision', '1.18.10')
+	.set('minecraft:block_collision', '1.19.10')
+	.set('minecraft:block_light_absorption', '1.18.10')
+	.set('minecraft:block_light_filter', '1.19.10')
+	.set('minecraft:block_light_emission', '1.19.20')
+
+const renamedTo = new Map()
+	.set('minecraft:pick_collision', 'minecraft:aim_collision')
+	.set('minecraft:aim_collision', 'minecraft:selection_box')
+	.set('minecraft:entity_collision', 'minecraft:block_collision')
+	.set('minecraft:block_collision', 'minecraft:collision_box')
+	.set('minecraft:block_light_absorption', 'minecraft:block_light_filter')
+	.set('minecraft:block_light_filter', 'minecraft:light_dampening')
+	.set('minecraft:block_light_emission', 'minecraft:light_emission')
+
+const editedVersions = new Map()
+	.set('minecraft:crafting_table', '1.19.10')
+	.set('minecraft:flammable', '1.19.10')
+
+const editedProperties = new Map()
+	.set('grid_size', '')
+	.set('custom_description', 'table_name')
+	.set('flame_odds', 'catch_chance_modifier')
+	.set('burn_odds', 'destroy_chance_modifier')
+
+const replacedComponents = new Map()
+	.set('minecraft:rotation', '1.19.80')
+	.set('minecraft:destroy_time', '1.19.20')
+	.set('minecraft:explosion_resistance', '1.19.20')
+	.set('minecraft:ticking', '1.19.10')
+
+const replacedWith = new Map()
+	.set('minecraft:rotation', 'minecraft:transformation')
+	.set('minecraft:destroy_time', 'minecraft:destructible_by_mining')
+	.set('minecraft:explosion_resistance', 'minecraft:destructible_by_explosion')
+	.set('minecraft:ticking', 'minecraft:queued_ticking')
+
+const removedComponents = new Map()
+	.set('minecraft:breakonpush', '0.0')
+	.set('minecraft:immovable', '0.0')
+	.set('minecraft:onlypistonpush', '0.0')
+	.set('minecraft:preventsjumping', '0.0')
+	.set('minecraft:unwalkable', '0.0')
+	.set('minecraft:part_visibility', '0.0')
 
 const validate = () => {
+
+	if (compareVersions.compare(fileFormatVersion, '1.16.0', '<=')) return;
 
 	const components = Node;
 
 	fileFormatVersion = Bridge.GlobalNode.children[0].data;
 	Node.error = undefined;
 
-	console.warn('Validating...')
 	components.children.forEach(component => {
 
 		const component_name = component.internal_key;
-		console.warn(component_name)
 
-		if (!releaseVersions.has(component_name)) return;
-		if (compareVersions.compare(releaseVersions.get(component_name), projectTargetVersion, '>')) return;
-
-		const isUsingOldFormatVersion = compareVersions.compare(fileFormatVersion, (releaseVersions.get(component_name)), '<')
-		const renamedComponent = Array.from(releaseVersions.keys())[Array.from(releaseVersions.values()).indexOf(releaseVersions.get(component_name)) + 1]
-
-		if (component_name == 'minecraft:crafting_table') {
-
-			const isOutdated = (Node.children.map(x => x.internal_key).some(name => ['grid_size', 'custom_description'].includes(name))) || isUsingOldFormatVersion;
-
-			if (!isOutdated) return;
+		if (editedVersions.has(component_name) && compareVersions.compare(fileFormatVersion, editedVersions.get(component_name), '>=') && (component.children.map(x => x.internal_key).some(name => editedProperties.has(name)))) {
 
 			Node.error = {
 				is_warning: true,
 				show: true,
-				message: `${component_name} was released from experimental in ${releaseVersions.get(component_name)}`,
+				message: `${component_name}'s properties were edited in ${editedVersions.get(component_name)}`,
 				fix: {
 					run: () => {
 
-						Bridge.GlobalNode.children[0].edit(releaseVersions.get(component_name))
+						Bridge.GlobalNode.children[0].edit(editedVersions.get(component_name))
 
 						component.forEach(child => {
 
-							const name = child.internal_key
+							const property = child.internal_key
 
-							if (name == 'grid_size') {
-								component.removeNode(child, true)
-							} else if (name == 'custom_description') {
-								let newChild = child;
-								newChild.internal_key = 'table_name'
-								component.add(newChild, true)
-							}
+							if (!editedProperties.has(property)) return;
+
+							let newProperty = {}
+							newProperty[editedProperties.get(property)] = child.data
+
+							component.removeNode(child)
+							if (editedProperties.get(property) != '') component.buildFromObject(newProperty)
+
 						})
 
 						Tab.setUnsaved();
@@ -70,112 +108,166 @@ const validate = () => {
 
 		}
 
+		else if (releaseVersions.has(component_name) && compareVersions.compare(fileFormatVersion, (releaseVersions.get(component_name)), '<') && compareVersions.compare(releaseVersions.get(component_name), projectTargetVersion, '<=')) {
+
+			Node.error = {
+				is_warning: true,
+				show: true,
+				message: `${component_name} was released from experimental in ${releaseVersions.get(component_name)}`,
+				fix: {
+					run: () => {
+
+						Bridge.GlobalNode.children[0].edit(releaseVersions.get(component_name), true)
+
+						Tab.setUnsaved();
+						validate();
+					}
+				}
+			}
+
+		}
+
+		else if (removedComponents.has(component_name) && compareVersions.compare(fileFormatVersion, removedComponents.get(component_name), '>=') && compareVersions.compare(removedComponents.get(component_name), projectTargetVersion, '<=')) {
+
+			// const msg = removedComponents.get('minecraft:rotation') ? `${component_name} was replaced with minecraft:transformation from ${removedComponents.get(component_name)}` : removedComponents.get('minecraft:destroy_time') ? `${component_name} was replaced with minecraft:destructible_by_mining from ${removedComponents.get(component_name)}` : removedComponents.get('minecraft:explosion_resistance') ? `${component_name} was replaced with minecraft:destructible_by_explosion from ${removedComponents.get(component_name)}` : ;
+
+			Node.error = {
+				is_warning: false,
+				show: true,
+				message: `${component_name} was removed`,
+				fix: {
+					run: () => {
+
+						if (component_name == 'minecraft:rotation') {
+
+							let newComponent = { 'minecraft:transformation': {} }
+							newComponent["minecraft:transformation"]['rotation'] = component.toJSON()
+
+							Bridge.GlobalNode.children[0].edit(removedComponents.get(component_name), true)
+							components.buildFromObject(newComponent)
+
+						}
+
+						else if (component_name == 'minecraft:destroy_time') {
+
+							let newComponent = { 'minecraft:destructible_by_mining': {} }
+							newComponent["minecraft:destructible_by_mining"]["seconds_to_destroy"] = component.data;
+
+							Bridge.GlobalNode.children[0].edit(removedComponents.get(component_name), true)
+							components.buildFromObject(newComponent)
+
+						}
+
+						else if (component_name == 'minecraft:explosion_resistance') {
+
+							let newComponent = { 'minecraft:destructible_by_explosion': {} }
+							newComponent["minecraft:destructible_by_explosion"]["explosion_resistance"] = component.data;
+
+							Bridge.GlobalNode.children[0].edit(removedComponents.get(component_name), true)
+							components.buildFromObject(newComponent)
+
+						}
+
+						components.removeNode(component)
+
+						Tab.setUnsaved();
+						validate();
+					}
+				}
+			}
+
+		}
+
+		else if (replacedComponents.has(component_name) && compareVersions.compare(fileFormatVersion, replacedComponents.get(component_name), '>=') && compareVersions.compare(replacedComponents.get(component_name), projectTargetVersion, '<=')) {
+
+			Node.error = {
+				is_warning: true,
+				show: true,
+				message: `${component_name} was replaced with ${replacedWith.get(component_name)} from ${replacedComponents.get(component_name)}`,
+				fix: {
+					run: () => {
+
+						if (component_name == 'minecraft:rotation') {
+
+							let newComponent = { 'minecraft:transformation': {} }
+							newComponent["minecraft:transformation"]['rotation'] = component.toJSON()
+
+							Bridge.GlobalNode.children[0].edit(removedComponents.get(component_name), true)
+							components.buildFromObject(newComponent)
+
+						}
+
+						else if (component_name == 'minecraft:destroy_time') {
+
+							let newComponent = { 'minecraft:destructible_by_mining': {} }
+							newComponent["minecraft:destructible_by_mining"]["seconds_to_destroy"] = component.data;
+
+							Bridge.GlobalNode.children[0].edit(removedComponents.get(component_name), true)
+							components.buildFromObject(newComponent)
+
+						}
+
+						else if (component_name == 'minecraft:explosion_resistance') {
+
+							let newComponent = { 'minecraft:destructible_by_explosion': {} }
+							newComponent["minecraft:destructible_by_explosion"]["explosion_resistance"] = component.data;
+
+							Bridge.GlobalNode.children[0].edit(removedComponents.get(component_name), true)
+							components.buildFromObject(newComponent)
+
+						}
+
+						else if (component_name == 'minecraft:ticking') {
+
+							let newComponent = { 'minecraft:queued_ticking': {} }
+
+							const json = component.toJSON()
+
+							if (json.range) newComponent["minecraft:queued_ticking"]["interval_range"] = json.range;
+							if (json.looping) newComponent["minecraft:queued_ticking"]["looping"] = json.looping;
+							if (json.on_tick) newComponent["minecraft:queued_ticking"]["on_tick"] = json.on_tick;
+
+							Bridge.GlobalNode.children[0].edit(replacedComponents.get(component_name), true)
+							components.buildFromObject(newComponent)
+
+						}
+
+						components.removeNode(component)
+
+						Tab.setUnsaved();
+						validate();
+					}
+				}
+			}
+
+		}
+
+		else if (renamedVersions.has(component_name) && compareVersions.compare(fileFormatVersion, renamedVersions.get(component_name), '>=') && compareVersions.compare(renamedVersions.get(component_name), projectTargetVersion, '<=')) {
+
+			const renamedComponent = renamedTo.get(component_name)
+
+			Node.error = {
+				is_warning: true,
+				show: true,
+				message: `${component_name} was renamed from ${renamedVersions.get(component_name)}+ to ${renamedComponent}`,
+				fix: {
+					run: () => {
+
+						Bridge.GlobalNode.children[0].edit(renamedVersions.get(component_name), true)
+
+						component.editKey(renamedComponent, true)
+
+						if (renamedComponent == 'minecraft:block_light_filter') component.data = 15
+
+						Tab.setUnsaved();
+						validate();
+					}
+				}
+			}
+
+		}
+
 	})
-
-	// if (component == '') {
-
-	// 	const isOutdated = (Node.children.map(x => x.internal_key).some(name => ['grid_size', 'custom_description'].includes(name))) || isUsingOldFormatVersion;
-
-	// 	if (!isOutdated) return;
-
-	// 	Node.error = {
-	// 		is_warning: true,
-	// 		show: true,
-	// 		message: `${component} was released from experimental in 1.19.50`,
-	// 		fix: {
-	// 			run: () => {
-
-	// 				Bridge.GlobalNode.children[0].edit(releaseVersions.get(component), true)
-
-	// 				Node.children.forEach(child => {
-
-	// 					const name = child.internal_key
-
-	// 					if (name == 'grid_size') {
-	// 						Node.removeNode(child, true)
-	// 					} else if (name == 'custom_description') {
-	// 						let newChild = child;
-	// 						newChild.internal_key = 'table_name'
-	// 						Node.add(newChild, true)
-	// 					}
-	// 				})
-
-	// 				Tab.setUnsaved();
-	// 				validate();
-	// 			}
-	// 		}
-
-	// 	}
-
-	// } else if (component == 'minecraft:display_name' || component == 'minecraft:placement_filter' || component == 'minecraft:selection_box') {
-
-	// 	if (!isUsingOldFormatVersion) return;
-
-	// 	Node.error = {
-	// 		is_warning: true,
-	// 		show: true,
-	// 		message: `${component} was released from experimental in ${releaseVersions.get(component)}`,
-	// 		fix: {
-	// 			run: () => {
-
-	// 				Bridge.GlobalNode.children[0].edit(releaseVersions.get(component), true)
-
-	// 				Tab.setUnsaved();
-	// 				validate();
-	// 			}
-	// 		}
-	// 	}
-
-	// } else if (component == 'minecraft:rotation') {
-
-	// 	Node.error = {
-	// 		is_warning: true,
-	// 		show: true,
-	// 		message: `${component} was replaced with minecraft:transformation from 1.19.80+`,
-	// 		fix: {
-	// 			run: () => {
-
-	// 				Bridge.GlobalNode.children[0].edit(releaseVersions.get(component), true)
-
-	// 				const rotation = Node.clone();
-	// 				rotation.updateUUID()
-	// 				rotation.key = 'rotation';
-	// 				rotation.parent = undefined;
-	// 				rotation.internal_key = 'rotation';
-
-	// 				Node.editKey('minecraft:transformation', true)
-	// 				Node.children = []
-	// 				Node.add(rotation, true)
-
-	// 				Tab.setUnsaved();
-	// 				validate();
-	// 			}
-	// 		}
-	// 	}
-
-	// } else if (component == 'minecraft:pick_collision' || component == 'minecraft:aim_collision') {
-
-	// 	if (compareVersions.compare(releaseVersions.get(renamedComponent), projectTargetVersion, '>')) return;
-
-	// 	Node.error = {
-	// 		is_warning: true,
-	// 		show: true,
-	// 		message: `${component} was renamed from ${releaseVersions.get(renamedComponent)}+`,
-	// 		fix: {
-	// 			run: () => {
-
-	// 				Bridge.GlobalNode.children[0].edit(releaseVersions.get(renamedComponent), true)
-
-	// 				Node.editKey(renamedComponent, true)
-
-	// 				Tab.setUnsaved();
-	// 				validate();
-	// 			}
-	// 		}
-	// 	}
-
-	// }
-
 }
 
 validate()
