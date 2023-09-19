@@ -12,18 +12,18 @@ export function prepareRun(
 		async = false,
 	}: IRunConfig
 ): (...args: unknown[]) => Promise<unknown> | unknown | void {
-	if (code === undefined) return () => {}
+	if (code === undefined) return () => { }
 	try {
 		return eval(
 			`(${async ? 'async ' : ''}function runScript(${envName}) {
-				${
-					executionContext === 'inline' && !code.startsWith('return ')
-						? 'return'
-						: ''
-				} ${code}
+				${executionContext === 'inline' && !code.startsWith('return ')
+				? 'return'
+				: ''
+			} ${code}
 			})`
 		)
 	} catch (err) {
+		console.log(code)
 		throw err
 	}
 }
@@ -38,9 +38,9 @@ export const run = (
 ): Promise<unknown> | unknown => {
 	return Array.isArray(env)
 		? prepareRun(code, { executionContext, envName, async }).call(
-				{},
-				...env
-		  )
+			{},
+			...env
+		)
 		: prepareRun(code, { executionContext, envName, async }).call({}, env)
 }
 
