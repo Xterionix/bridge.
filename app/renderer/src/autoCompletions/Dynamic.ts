@@ -169,6 +169,9 @@ export const DYNAMIC = {
 		},
 	},
 	block: {
+		/**
+		 * @todo Fix
+		 */
 		property() {
 			return Object.keys(DYNAMIC.block.property_obj)
 		},

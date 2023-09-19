@@ -1,18 +1,11 @@
 <template>
 	<v-container v-if="!no_projects">
-		<span
-			v-if="
-				selected !== undefined &&
-					selected !== '/@NO-RP@/' &&
-					selected !== '/@NO-DEPENDENCY@/' &&
-					selected !== '/@NO-BP@/'
-			"
-		>
-			<component
-				:is="toolbar_component"
-				:selected="selected"
-				:base_path="base_path"
-			/>
+		<span v-if="selected !== undefined &&
+			selected !== '/@NO-RP@/' &&
+			selected !== '/@NO-DEPENDENCY@/' &&
+			selected !== '/@NO-BP@/'
+			">
+			<component :is="toolbar_component" :selected="selected" :base_path="base_path" />
 			<v-divider />
 		</span>
 
@@ -23,12 +16,8 @@
 				</v-avatar>
 			</span>
 
-			<v-subheader
-				v-if="selected"
-				style="width: calc(100% - 48px);"
-				v-ripple="force_project_algorithm === undefined"
-				@click="openProjectScreen"
-			>
+			<v-subheader v-if="selected" style="width: calc(100% - 48px);" v-ripple="force_project_algorithm === undefined"
+				@click="openProjectScreen">
 				<span class="text-truncate">
 					{{ selected.split(/\\|\//g).pop() }}
 				</span>
@@ -40,23 +29,13 @@
 		</v-layout>
 
 		<v-divider></v-divider>
-		<file-displayer
-			v-if="
-				loaded_file_defs &&
-					selected !== undefined &&
-					selected !== '/@NO-RP@/' &&
-					selected !== '/@NO-DEPENDENCY@/' &&
-					selected !== '/@NO-BP@/'
-			"
-			:project="selected"
-			:base_path="base_path"
-			:explorer_type="explorer_type"
-			class="file-displayer"
-		/>
-		<v-progress-linear
-			v-else-if="!loaded_file_defs || selected === undefined"
-			indeterminate
-		/>
+		<file-displayer v-if="loaded_file_defs &&
+			selected !== undefined &&
+			selected !== '/@NO-RP@/' &&
+			selected !== '/@NO-DEPENDENCY@/' &&
+			selected !== '/@NO-BP@/'
+			" :project="selected" :base_path="base_path" :explorer_type="explorer_type" class="file-displayer" />
+		<v-progress-linear v-else-if="!loaded_file_defs || selected === undefined" indeterminate />
 		<div v-else-if="selected === '/@NO-DEPENDENCY@/'" style="padding: 4px;">
 			<p style="word-break: break-word;">
 				It doesn't look like your current behavior pack has a
@@ -265,6 +244,9 @@ export default {
 			this.project_select_size = window.innerWidth / 7.5
 		},
 
+		/**
+		* @todo Return last loaded project
+		**/
 		async findDefaultProject(forceRefresh = false, findBP = false) {
 			if (this.force_project_algorithm) {
 				this.selected = undefined
