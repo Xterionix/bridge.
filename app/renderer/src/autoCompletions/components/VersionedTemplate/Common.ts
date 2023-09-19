@@ -53,7 +53,22 @@ export function compileCondition(condition: string) {
 }
 
 export function compileSingleCondition(condition: any) {
+
+	const conditions: string[] = [
+		"$format_version",
+		"$project_target_version",
+		"$holiday_creator_features",
+		"$custom_biomes",
+		"$upcoming_creator_features",
+		"$scripting",
+		"$molang_features",
+		"$experimental_cameras"
+	]
+
 	let [v1, operator, v2] = condition.split(/\s+/)
+
+	if (!conditions.includes(v1)) return false;
+
 	if (v1 === '$format_version') v1 = getFormatVersion()
 	if (v2 === '$format_version') v2 = getFormatVersion()
 	if (v1 === '$project_target_version')
