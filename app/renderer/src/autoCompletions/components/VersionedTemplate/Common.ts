@@ -47,9 +47,14 @@ export function compileVersionedTemplate(template: IVersionedTemplate[]) {
 }
 
 export function compileCondition(condition: string) {
-	let conds = condition.split(/\s+and\s+/)
-	for (const cond of conds) if (!compileSingleCondition(cond)) return false
-	return true
+	let conds = condition.split(/\s+and\s+|\s+or\s+/)
+	if (condition.includes('and')) {
+		for (const cond of conds) if (!compileSingleCondition(cond)) return false
+		return true
+	} else {
+		for (const cond of conds) if (compileSingleCondition(cond)) return true
+		return false
+	}
 }
 
 export function compileSingleCondition(condition: any) {
