@@ -75,17 +75,17 @@ export default async function startUp() {
 
 export function createAppUpdateNotification() {
 	// Fetch the latest json/version data
-	fetchLatestJson().then(updateData => {
-		if (updateData.update_available) {
-			// If there's an update, notify the user
-			const notification = createNotification({
-				icon: 'mdi-update',
-				message: 'Update Available',
-				textColor: 'white',
-				onClick: () => {
-					new UpdateWindow(updateData, notification)
-				},
-			})
-		}
-	})
+	// fetchLatestJson().then(updateData => {
+	// 	if (updateData.update_available) {
+	// 		// If there's an update, notify the user
+	// 		const notification = createNotification({
+	// 			icon: 'mdi-update',
+	// 			message: 'Update Available',
+	// 			textColor: 'white',
+	// 			onClick: () => {
+	// 				new UpdateWindow(updateData, notification)
+	// 			},
+	// 		})
+	// 	}
+	// })
 }

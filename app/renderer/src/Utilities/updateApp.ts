@@ -34,7 +34,7 @@ export async function updateApp(urls: Array<string>) {
 			// User's OS isn't supported by the updater
 			lw.close() // Close the loading window
 			shell.openExternal(
-				'https://github.com/bridge-core/bridge./releases/latest'
+				'https://github.com/Xterionix/bridge./releases/latest'
 			)
 			return
 		}
@@ -59,7 +59,7 @@ export async function fetchLatestJson() {
 	let res: newVersionRes = {}
 
 	await fetch(
-		'https://api.github.com/repos/bridge-core/bridge./releases/latest'
+		'https://api.github.com/repos/Xterionix/bridge./releases/latest'
 	)
 		.then(data => data.json())
 		.then(data => {
