@@ -129,44 +129,12 @@ const validate = () => {
 
 		else if (removedComponents.has(component_name) && compareVersions.compare(fileFormatVersion, removedComponents.get(component_name), '>=') && compareVersions.compare(removedComponents.get(component_name), projectTargetVersion, '<=')) {
 
-			// const msg = removedComponents.get('minecraft:rotation') ? `${component_name} was replaced with minecraft:transformation from ${removedComponents.get(component_name)}` : removedComponents.get('minecraft:destroy_time') ? `${component_name} was replaced with minecraft:destructible_by_mining from ${removedComponents.get(component_name)}` : removedComponents.get('minecraft:explosion_resistance') ? `${component_name} was replaced with minecraft:destructible_by_explosion from ${removedComponents.get(component_name)}` : ;
-
 			Node.error = {
 				is_warning: false,
 				show: true,
 				message: `${component_name} was removed`,
 				fix: {
 					run: () => {
-
-						if (component_name == 'minecraft:rotation') {
-
-							let newComponent = { 'minecraft:transformation': {} }
-							newComponent["minecraft:transformation"]['rotation'] = component.toJSON()
-
-							Bridge.GlobalNode.children[0].edit(removedComponents.get(component_name), true)
-							components.buildFromObject(newComponent)
-
-						}
-
-						else if (component_name == 'minecraft:destroy_time') {
-
-							let newComponent = { 'minecraft:destructible_by_mining': {} }
-							newComponent["minecraft:destructible_by_mining"]["seconds_to_destroy"] = component.data;
-
-							Bridge.GlobalNode.children[0].edit(removedComponents.get(component_name), true)
-							components.buildFromObject(newComponent)
-
-						}
-
-						else if (component_name == 'minecraft:explosion_resistance') {
-
-							let newComponent = { 'minecraft:destructible_by_explosion': {} }
-							newComponent["minecraft:destructible_by_explosion"]["explosion_resistance"] = component.data;
-
-							Bridge.GlobalNode.children[0].edit(removedComponents.get(component_name), true)
-							components.buildFromObject(newComponent)
-
-						}
 
 						components.removeNode(component)
 
@@ -192,8 +160,8 @@ const validate = () => {
 							let newComponent = { 'minecraft:transformation': {} }
 							newComponent["minecraft:transformation"]['rotation'] = component.toJSON()
 
-							Bridge.GlobalNode.children[0].edit(removedComponents.get(component_name), true)
 							components.buildFromObject(newComponent)
+							Bridge.GlobalNode.children[0].edit(replacedComponents.get(component_name), true)
 
 						}
 
@@ -202,8 +170,8 @@ const validate = () => {
 							let newComponent = { 'minecraft:destructible_by_mining': {} }
 							newComponent["minecraft:destructible_by_mining"]["seconds_to_destroy"] = component.data;
 
-							Bridge.GlobalNode.children[0].edit(removedComponents.get(component_name), true)
 							components.buildFromObject(newComponent)
+							Bridge.GlobalNode.children[0].edit(replacedComponents.get(component_name), true)
 
 						}
 
@@ -212,8 +180,8 @@ const validate = () => {
 							let newComponent = { 'minecraft:destructible_by_explosion': {} }
 							newComponent["minecraft:destructible_by_explosion"]["explosion_resistance"] = component.data;
 
-							Bridge.GlobalNode.children[0].edit(removedComponents.get(component_name), true)
 							components.buildFromObject(newComponent)
+							Bridge.GlobalNode.children[0].edit(replacedComponents.get(component_name), true)
 
 						}
 
@@ -227,8 +195,8 @@ const validate = () => {
 							if (json.looping) newComponent["minecraft:queued_ticking"]["looping"] = json.looping;
 							if (json.on_tick) newComponent["minecraft:queued_ticking"]["on_tick"] = json.on_tick;
 
-							Bridge.GlobalNode.children[0].edit(replacedComponents.get(component_name), true)
 							components.buildFromObject(newComponent)
+							Bridge.GlobalNode.children[0].edit(replacedComponents.get(component_name), true)
 
 						}
 
