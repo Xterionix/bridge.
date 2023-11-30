@@ -46,13 +46,13 @@ export const FileMenu: IAppMenu = {
 					},
 					onClick: async () => {
 						const lw = new LoadingWindow()
-						;(
-							await ipcRenderer.invoke('openFileDialog', {
-								properties: ['multiSelections'],
-							})
-						).forEach((filePath: string) =>
-							FileSystem.open(filePath)
-						)
+							; (
+								await ipcRenderer.invoke('openFileDialog', {
+									properties: ['multiSelections'],
+								})
+							).forEach((filePath: string) =>
+								FileSystem.open(filePath)
+							)
 
 						lw.close()
 					},
@@ -107,8 +107,8 @@ export const FileMenu: IAppMenu = {
 			displayName: 'Clear all notifications',
 			displayIcon: 'mdi-cancel',
 			keyBinding: {
-				key: 'b',
-				ctrlKey: true,
+				key: 'c',
+				altKey: true
 			},
 			onClick: () => clearAllNotifications(),
 		},
