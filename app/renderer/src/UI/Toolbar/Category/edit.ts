@@ -2,6 +2,8 @@ import { IAppMenu } from '../create'
 import TabSystem from '../../../TabSystem'
 import EventBus from '../../../EventBus'
 import NodeShortcuts from '../../../editor/NodeShortcuts'
+import { getDefaultSidebar } from '../../Sidebar/setup'
+import { getLastSelected, getSelected } from '../../Sidebar/state'
 
 export const EditMenu: IAppMenu = {
 	displayName: 'Edit',
@@ -241,6 +243,15 @@ export const EditMenu: IAppMenu = {
 				ctrlKey: true,
 			},
 			onClick: () => TabSystem.nextTab()
+		},
+		{
+			displayName: 'Hide Sidebar',
+			displayIcon: 'mdi-page-layout-sidebar-left',
+			keyBinding: {
+				key: 'b',
+				ctrlKey: true,
+			},
+			onClick: () => getSelected() ? getSelected().toggle() : getLastSelected().toggle()
 		}
 	],
 }
