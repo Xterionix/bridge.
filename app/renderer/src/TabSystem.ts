@@ -363,7 +363,7 @@ class TabSystem {
 
 	//Utilities
 	select(val = 0) {
-		console.warn("Tab selected " + val)
+
 		if (
 			val < 0 ||
 			(this.projects[this.project] !== undefined &&
