@@ -14,12 +14,18 @@ export default class PackLinker {
 				`${RP_BASE_PATH}${rp_name}/manifest.json`
 			)
 
-			bp_data.dependencies = [
+			if (!bp_data.dependencies) bp_data.dependencies = [
 				{
 					version: rp_data.header.version,
 					uuid: rp_data.header.uuid,
 				},
 			]
+			else bp_data.dependencies.push(
+				{
+					version: rp_data.header.version,
+					uuid: rp_data.header.uuid,
+				}
+			)
 
 			await writeJSON(
 				`${BASE_PATH}${bp_name}/manifest.json`,
@@ -43,7 +49,9 @@ export default class PackLinker {
 		try {
 			let bp_data = await readJSON(`${BASE_PATH}${bp_name}/manifest.json`)
 
-			bp_data.dependencies = []
+			bp_data.dependencies.forEach((element: any, index: number) => {
+				if (element.uuid) bp_data.dependencies.splice(index, 1)
+			});
 
 			await writeJSON(
 				`${BASE_PATH}${bp_name}/manifest.json`,

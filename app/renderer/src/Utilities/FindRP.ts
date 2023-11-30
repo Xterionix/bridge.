@@ -36,7 +36,13 @@ export default async function findRP() {
 		manifest = await readJSON(
 			path.join(BASE_PATH, selected, 'manifest.json')
 		)
-		uuid = manifest.dependencies[0].uuid
+		manifest.dependencies.forEach((element: any) => {
+			if (element.uuid) uuid = element.uuid
+		});
+		if (!uuid) {
+			last_result = '/@NO-DEPENDENCY@/'
+			return '/@NO-DEPENDENCY@/'
+		}
 	} catch (e) {
 		last_result = '/@NO-DEPENDENCY@/'
 		return '/@NO-DEPENDENCY@/'
@@ -45,7 +51,7 @@ export default async function findRP() {
 	let rps: string[] = []
 	try {
 		rps = await fs.readdir(RP_BASE_PATH)
-	} catch {}
+	} catch { }
 
 	//Load resource packs from worlds
 	if (Store.state.Settings.load_packs_from_worlds) {
@@ -54,7 +60,7 @@ export default async function findRP() {
 			map_packs = await fs.readdir(
 				path.join(MOJANG_PATH, 'minecraftWorlds')
 			)
-		} catch {}
+		} catch { }
 		map_packs = (
 			await Promise.all(
 				map_packs.map(async p => {
