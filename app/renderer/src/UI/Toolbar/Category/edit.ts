@@ -42,7 +42,7 @@ export const EditMenu: IAppMenu = {
 							let p = TabSystem.getCurrentNavObj().parent
 							if (p !== undefined)
 								TabSystem.setCurrentFileNav(p.path)
-						} catch {}
+						} catch { }
 					},
 				},
 				{
@@ -120,7 +120,7 @@ export const EditMenu: IAppMenu = {
 						try {
 							TabSystem.getCurrentNavObj().toggleIsActive()
 							TabSystem.setCurrentUnsaved()
-						} catch {}
+						} catch { }
 					},
 				},
 			],
@@ -233,5 +233,14 @@ export const EditMenu: IAppMenu = {
 				}
 			},
 		},
+		{
+			displayName: 'Next Tab',
+			displayIcon: 'mdi-chevron-right',
+			keyBinding: {
+				key: 'tab',
+				ctrlKey: true,
+			},
+			onClick: () => TabSystem.nextTab()
+		}
 	],
 }

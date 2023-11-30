@@ -261,7 +261,7 @@ class TabSystem {
 				() => {
 					this.internalCloseId(id, project)
 				},
-				() => {}
+				() => { }
 			)
 		} else {
 			this.internalCloseId(id, project)
@@ -363,11 +363,11 @@ class TabSystem {
 
 	//Utilities
 	select(val = 0) {
+		console.warn("Tab selected " + val)
 		if (
 			val < 0 ||
 			(this.projects[this.project] !== undefined &&
-				this.projects[this.project][val] !== undefined &&
-				val > this.projects[this.project].length)
+				this.projects[this.project][val] === undefined) || val >= this.projects[this.project].length
 		)
 			throw new TypeError(
 				'Tab to select is not within the valid range. (size of the tabs array)'
@@ -392,6 +392,19 @@ class TabSystem {
 		//UPDATE UI
 		EventBus.trigger('updateSelectedTab')
 	}
+	nextTab() {
+
+		let val = this.getSelectedIndex() + 1
+
+		if (
+			val < 0 ||
+			(this.projects[this.project] !== undefined &&
+				this.projects[this.project][val] === undefined) || val >= this.projects[this.project].length
+		) val = 0
+
+		if (val != this.getSelectedIndex()) this.select(val)
+
+	}
 	selectNavigation(str_path: string, tab = this.selected) {
 		if (
 			!this.getSelected() ||
@@ -408,7 +421,7 @@ class TabSystem {
 				{ node: this.getSelected().content.get(str_path) },
 				true
 			)
-		} catch (e) {}
+		} catch (e) { }
 	}
 	setCurrentFileNav(val: string) {
 		this.selectNavigation(val)
@@ -472,7 +485,7 @@ class TabSystem {
 	toggleCurrentNode() {
 		try {
 			this.getCurrentNavObj().toggleOpen()
-		} catch (e) {}
+		} catch (e) { }
 	}
 
 	async transformContent(
@@ -488,12 +501,12 @@ class TabSystem {
 			return JSON.stringify(
 				toJSON
 					? await BridgeCore.beforeSave(
-							Format.toJSON(c, true, false, true),
-							undefined,
-							undefined,
-							undefined,
-							file_uuid
-					  )
+						Format.toJSON(c, true, false, true),
+						undefined,
+						undefined,
+						undefined,
+						file_uuid
+					)
 					: c.buildForCache(),
 				null,
 				this.use_tabs ? '\t' : '  '
@@ -573,8 +586,7 @@ class TabSystem {
 			let comment_char = FileType.getCommentChar(current.file_path)
 			shouldSetSaved = await FileSystem[fsMethod](
 				current.file_path,
-				`${comment_char}bridge-file-version: #${
-					current.file_version
+				`${comment_char}bridge-file-version: #${current.file_version
 				}\n${await this.getSaveContent(
 					current,
 					update_cache && shouldBeCached
