@@ -367,7 +367,8 @@ class TabSystem {
 		if (
 			val < 0 ||
 			(this.projects[this.project] !== undefined &&
-				this.projects[this.project][val] === undefined) || val >= this.projects[this.project].length
+				this.projects[this.project][val] !== undefined &&
+				val > this.projects[this.project].length)
 		)
 			throw new TypeError(
 				'Tab to select is not within the valid range. (size of the tabs array)'
