@@ -169,6 +169,17 @@ export const DYNAMIC = {
 		},
 	},
 	block: {
+		properties() {
+			try {
+				return Object.keys(
+					TabSystem.getSelected()
+						.content.get('#;bridge_node_skip;#/description/properties')
+						.toJSON()
+				)
+			} catch (e) {
+				return []
+			}
+		},
 		/**
 		 * @todo Fix
 		 */
