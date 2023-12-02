@@ -16,6 +16,7 @@ import JSONTree from './JsonTree'
 import fs from 'fs'
 import deepmerge from 'deepmerge'
 import { trigger } from '../AppCycle/EventSystem'
+import { chdir } from 'process'
 
 function toUnifiedObj(obj: any) {
 	let tmp = []
@@ -230,7 +231,10 @@ export default class LightningCache {
 					if (iterate !== undefined) {
 						let data = content.get(iterate)?.children ?? []
 
-						data.forEach(c =>
+						/**
+						 * @todo Fix 'cache' returning the last item in the array everytime
+						 */
+						data.forEach(c => {
 							this.storeInCache(
 								cache,
 								c,
@@ -238,8 +242,8 @@ export default class LightningCache {
 								key,
 								filter,
 								loadData
-							)
-						)
+							);
+						})
 					} else if (path !== undefined) {
 						this.storeInCache(
 							cache,
@@ -263,7 +267,7 @@ export default class LightningCache {
 									let data = []
 									try {
 										data = c.toJSON()
-									} catch {}
+									} catch { }
 
 									if (Array.isArray(data)) {
 										res.push(...data)
@@ -308,13 +312,13 @@ export default class LightningCache {
 			} else if (typeof data === 'object') {
 				cache[key] = loadData
 					? <string[]>(
-							Object.values(data).filter(
-								d => !filter || !filter.includes(<string>d)
-							)
-					  )
+						Object.values(data).filter(
+							d => !filter || !filter.includes(<string>d)
+						)
+					)
 					: Object.keys(data).filter(
-							d => !filter || !filter.includes(d)
-					  )
+						d => !filter || !filter.includes(d)
+					)
 			} else {
 				cache[key] = [data].filter(d => !filter || !filter.includes(d))
 			}
@@ -343,12 +347,12 @@ export default class LightningCache {
 			if (this.globalCache !== undefined)
 				return (
 					this.globalCache[type][
-						OmegaCache.toCachePath(filePath, false)
+					OmegaCache.toCachePath(filePath, false)
 					] || {}
 				)
 			return (
 				(await readJSON(this.loadCachePath))[type][
-					OmegaCache.toCachePath(filePath, false)
+				OmegaCache.toCachePath(filePath, false)
 				] || {}
 			)
 		} catch (err) {
@@ -378,11 +382,11 @@ export default class LightningCache {
 				OmegaCache.toCachePath(newPath, false)
 			] = this.globalCache[oldType][
 				OmegaCache.toCachePath(oldPath, false)
-			]
+				]
 			delete this.globalCache[oldType][
 				OmegaCache.toCachePath(oldPath, false)
 			]
-		} catch (e) {}
+		} catch (e) { }
 
 		await this.saveCache()
 	}
@@ -398,7 +402,7 @@ export default class LightningCache {
 			this.globalCache[newType][
 				OmegaCache.toCachePath(as, false)
 			] = this.globalCache[oldType][OmegaCache.toCachePath(what, false)]
-		} catch (e) {}
+		} catch (e) { }
 
 		await this.saveCache()
 	}
@@ -411,7 +415,7 @@ export default class LightningCache {
 			delete this.globalCache[type][
 				OmegaCache.toCachePath(filePath, false)
 			]
-		} catch (e) {}
+		} catch (e) { }
 		await this.saveCache()
 	}
 

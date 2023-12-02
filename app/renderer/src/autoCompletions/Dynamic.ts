@@ -250,8 +250,7 @@ export const DYNAMIC = {
 	},
 	dialog: {
 		scene_tags() {
-			console.warn(LightningCache.getCompiledSync())
-			return LightningCache.getCompiledSync()?.feature?.identifiers || []
+			return LightningCache.getCompiledSync()?.dialog?.scenes || []
 		}
 	},
 	animation_controller: {
