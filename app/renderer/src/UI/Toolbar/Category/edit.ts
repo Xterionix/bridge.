@@ -35,10 +35,10 @@ export const EditMenu: IAppMenu = {
 				{
 					displayName: 'Select Parent',
 					displayIcon: 'mdi-chevron-double-up',
-					keyBinding: {
-						key: 'p',
-						ctrlKey: true,
-					},
+					// keyBinding: {
+					// 	key: 'p',
+					// 	ctrlKey: true,
+					// },
 					onClick: () => {
 						try {
 							let p = TabSystem.getCurrentNavObj().parent

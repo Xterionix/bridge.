@@ -25,9 +25,8 @@ export const ToolMenu: IAppMenu = {
 			displayName: 'Go to File',
 			displayIcon: 'mdi-magnify',
 			keyBinding: {
-				key: 'o',
-				ctrlKey: true,
-				shiftKey: true,
+				key: 'p',
+				ctrlKey: true
 			},
 			onClick: () => GoToFile.open(),
 		},
