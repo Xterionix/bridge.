@@ -28,7 +28,6 @@ export default {
 			const arr = loadFiles()
 
 			if (!this.query) return arr;
-			console.warn(this.query)
 
 			const f = new fuse.default(arr.map(x => ({ fileName: x.text.split('/').pop(), path: x.text, value: x.value })), { includeScore: false, keys: [{ name: 'fileName', weight: 0.7 }, { name: 'path', weight: 0.3 }], includeMatches: true, ignoreLocation: true, distance: 100 })
 			const result = f.search(this.query)
