@@ -248,6 +248,12 @@ export const DYNAMIC = {
 			return LightningCache.getCompiledSync()?.feature?.identifiers || []
 		},
 	},
+	dialog: {
+		scene_tags() {
+			console.warn(LightningCache.getCompiledSync())
+			return LightningCache.getCompiledSync()?.feature?.identifiers || []
+		}
+	},
 	animation_controller: {
 		current_states() {
 			try {
