@@ -19,6 +19,7 @@ import { getFolderDiff } from './files/DiffPaths'
 import { editor, Uri } from 'monaco-editor'
 import { trigger } from './AppCycle/EventSystem'
 import { createCloseUnsavedTabWindow } from './UI/Windows/CloseUnsavedTab/definition'
+import LimitedArray from './Utilities/LimitedArray'
 
 export interface Tab {
 	file_name: string
@@ -51,6 +52,7 @@ class TabSystem {
 	private split_screen_projects: ProjectData
 	private main_screen_selected = 0
 	private split_screen_selected = 0
+	public lastClosed = new LimitedArray()
 
 	constructor() {
 		this.main_screen_projects = {}
@@ -249,6 +251,8 @@ class TabSystem {
 	closeById(id: number, project = this.project) {
 		if (!this.getSelected()) return
 
+		this.lastClosed.push(this.getSelected().file_path)
+
 		if (
 			this.projects[project][id].is_unsaved &&
 			!this.projects[project][id].is_immutable
@@ -268,7 +272,11 @@ class TabSystem {
 		}
 	}
 	closeSelected() {
-		this.closeById(this.selected)
+		try {
+			this.closeById(this.selected)
+		} catch (error) {
+			console.log("err")
+		}
 	}
 	close(val?: number) {
 		if (val === undefined) {
