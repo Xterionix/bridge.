@@ -1,0 +1,22 @@
+{
+    "icon": "mdi-block-helper",
+    "title": "Block Culling Rules",
+    "extension": "json",
+    "path": "block_culling/",
+    "templates": {
+        "Blank Block Culling Rule": {
+            "format_version": "1.20.60",
+            "minecraft:block_culling_rules": {
+                "description": {
+                    "identifier": ""
+                },
+                "rules": [
+                    {
+                        "geometry_part": { "bone": "" },
+                        "direction": ""
+                    }
+                ]
+            }
+        }
+    }
+}
