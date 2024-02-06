@@ -5,9 +5,7 @@
       "identifier": "minecraft:warped_roots_feature"
     },
     "places_block": {
-      "name": "minecraft:warped_roots",
-      "states": {
-      }
+      "name": "minecraft:warped_roots"
     },
     "enforce_survivability_rules": false,
     "enforce_placement_rules": true,

@@ -5,9 +5,7 @@
       "identifier": "minecraft:warped_fungus_feature"
     },
     "places_block": {
-      "name": "minecraft:warped_fungus",
-      "states": {
-      }
+      "name": "minecraft:warped_fungus"
     },
     "enforce_survivability_rules": false,
     "enforce_placement_rules": true,

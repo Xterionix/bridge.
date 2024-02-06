@@ -11,6 +11,9 @@
       }
     },
     "enforce_survivability_rules": true,
-    "enforce_placement_rules": true
+    "enforce_placement_rules": false,
+    "may_replace": [
+      "minecraft:air"
+    ]
   }
 }

@@ -68,11 +68,6 @@
       "minecraft:grass",
       "minecraft:dirt",
       "minecraft:podzol",
-      "minecraft:dirt_with_roots",
-      "minecraft:moss_block",
-      "minecraft:mycelium",
-      "minecraft:mud",
-      "minecraft:muddy_mangrove_roots",
       {
         "name": "minecraft:dirt",
         "states": {
@@ -82,9 +77,6 @@
     ],
     "may_replace": [
       "minecraft:air",
-      "minecraft:mangrove_leaves",
-      "minecraft:azalea_leaves",
-      "minecraft:azalea_leaves_flowered",
       {
         "name": "minecraft:leaves",
         "states": {

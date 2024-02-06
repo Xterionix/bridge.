@@ -11,9 +11,6 @@
         "may_replace": [
           {
             "name": "minecraft:stone"
-          },
-          {
-            "name": "minecraft:deepslate"
           }
         ]
       }

@@ -13,14 +13,6 @@
             "name": "minecraft:stone"
           }
         ]
-      },
-      {
-        "places_block": "minecraft:deepslate_lapis_ore",
-        "may_replace": [
-          {
-            "name": "minecraft:deepslate"
-          }
-        ]
       }
     ]
   }

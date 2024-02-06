@@ -8,15 +8,15 @@
     "coordinate_eval_order": "zyx",
     "x": {
       "extent": [ -8, 8 ],
-      "distribution": "triangle"
+      "distribution": "gaussian"
     },
     "z": {
       "extent": [ -8, 8 ],
-      "distribution": "triangle"
+      "distribution": "gaussian"
     },
     "y": {
       "extent": [ -4, 4 ],
-      "distribution": "triangle"
+      "distribution": "gaussian"
     },
     "project_input_to_floor": false,
     "places_feature": "minecraft:crimson_roots_feature"

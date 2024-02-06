@@ -13,14 +13,6 @@
             "name": "minecraft:stone"
           }
         ]
-      },
-      {
-        "places_block": "minecraft:infested_deepslate",
-        "may_replace": [
-          {
-            "name": "minecraft:deepslate"
-          }
-        ]
       }
     ]
   }

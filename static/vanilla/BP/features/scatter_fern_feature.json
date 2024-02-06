@@ -6,15 +6,15 @@
     },
     "iterations": 90,
     "x": {
-      "distribution": "triangle",
+      "distribution": "gaussian",
       "extent": [ -8, 8 ]
     },
     "y": {
-      "distribution": "triangle",
+      "distribution": "gaussian",
       "extent": [ -4, 4 ]
     },
     "z": {
-      "distribution": "triangle",
+      "distribution": "gaussian",
       "extent": [ -8, 8 ]
     },
     "coordinate_eval_order": "zyx",

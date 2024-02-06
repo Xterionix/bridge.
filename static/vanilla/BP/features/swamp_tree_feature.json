@@ -16,7 +16,7 @@
         }
       },
       "can_be_submerged": {
-        "max_depth": 2
+        "max_depth": 1
       }
     },
     "canopy": {
@@ -72,8 +72,6 @@
       "minecraft:dirt",
       "minecraft:grass",
       "minecraft:podzol",
-      "minecraft:dirt_with_roots",
-      "minecraft:moss_block",
       // Block aliases sure would be sweet
       {
         "name": "minecraft:dirt",

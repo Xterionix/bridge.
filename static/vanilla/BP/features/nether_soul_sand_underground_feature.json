@@ -5,13 +5,17 @@
       "identifier": "minecraft:nether_soul_sand_underground_feature"
     },
     "count": 12,
-    "places_block": "minecraft:soul_sand",
-    "may_replace": [
+    "replace_rules": [
       {
-        "name": "minecraft:netherrack",
-        "states": {
-        }
+        "places_block": "minecraft:soul_sand",
+        "may_replace": [
+          {
+            "name": "minecraft:netherrack",
+            "states": {
+            }
+          }
+        ]
       }
-    ]
+    ] 
   }
 }

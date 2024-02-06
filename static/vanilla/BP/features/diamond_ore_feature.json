@@ -4,22 +4,13 @@
     "description": {
       "identifier": "minecraft:diamond_ore_feature"
     },
-    "count": 4,
-    "discard_chance_on_air_exposure": 0.5,
+    "count": 8,
     "replace_rules": [
       {
         "places_block": "minecraft:diamond_ore",
         "may_replace": [
           {
             "name": "minecraft:stone"
-          }
-        ]
-      },
-      {
-        "places_block": "minecraft:deepslate_diamond_ore",
-        "may_replace": [
-          {
-            "name": "minecraft:deepslate"
           }
         ]
       }
