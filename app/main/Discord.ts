@@ -12,7 +12,7 @@ client.updatePresence({
 	startTimestamp: START_TIME,
 	largeImageKey: 'big_icon',
 	largeImageText:
-		'bridge. | ' +
+		'bridgeX | ' +
 		APP_VERSION +
 		(process.env.NODE_ENV === 'development' ? '-dev' : ''),
 	instance: true,
