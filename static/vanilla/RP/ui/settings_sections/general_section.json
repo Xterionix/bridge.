@@ -64,7 +64,7 @@
       // Add some padding between the buttons/toggles to reduce the impression upon the eyes. (ADO:515619)
       {
         "paddingCellularData": {
-          "ignored": "($is_console or $is_settopbox or $win10_edition or $osx_edition or $education_edition_china)",
+          "ignored": "($is_console or $is_settopbox or $win10_edition or $osx_edition)",
           "type": "panel",
           "size": "$spatialPatternsPadding"
         }
@@ -72,7 +72,7 @@
 
       {
         "mobile_data_option_toggle@settings_common.option_toggle": {
-          "ignored": "($is_console or $is_settopbox or $win10_edition or $osx_edition or $education_edition_china)",
+          "ignored": "($is_console or $is_settopbox or $win10_edition or $osx_edition)",
           "$option_label": "options.allowCellularData",
           "$option_binding_name": "#allow_cellular_data",
           "$option_enabled_binding_name": "#allow_cellular_data_enabled",
@@ -85,7 +85,7 @@
       // Add some padding between the buttons/toggles to reduce the impression upon the eyes. (ADO:515619)
       {
         "paddingWebSockets": {
-          "ignored": "($console_edition or $education_edition_china)",
+          "ignored": "($console_edition)",
           "type": "panel",
           "size": "$spatialPatternsPadding"
         }
@@ -97,7 +97,7 @@
           "$option_binding_name": "#websocket_encryption",
           "$option_enabled_binding_name": "#websocket_encryption_enabled",
           "$toggle_name": "websocket_encryption",
-          "ignored": "($console_edition or $education_edition_china)"
+          "ignored": "($console_edition)"
         }
       },
 
@@ -160,7 +160,7 @@
       // Add some padding between the buttons/toggles to reduce the impression upon the eyes. (ADO:515619)
       {
         "paddingLinkEduSupport": {
-          "ignored": "(not $education_edition or $education_edition_china or $is_holographic or $fire_tv)",
+          "ignored": "(not $education_edition or $is_holographic or $fire_tv)",
           "type": "panel",
           "size": "$spatialPatternsPadding"
         }
@@ -168,7 +168,7 @@
 
       {
         "link_button@settings_common.link_button": {
-          "ignored": "(not $education_edition or $education_edition_china or $is_holographic or $fire_tv)",
+          "ignored": "(not $education_edition or $is_holographic or $fire_tv)",
           "$button_text": "options.goToFeedbackWebsite",
           "property_bag": {
             "#hyperlink": "https://aka.ms/minecraftedusupport"
@@ -276,7 +276,7 @@
 
       {
         "attribution_link_button@settings_common.link_button": {
-          "ignored": "($is_holographic or $fire_tv or $education_edition_china)",
+          "ignored": "($is_holographic or $fire_tv)",
           "$button_text": "options.attribution",
           "variables": [
             {
@@ -987,6 +987,24 @@
       },
 
       {
+        "paddingUseRemoteConnect": {
+          "ignored": "((not $google_os) and (not $is_ios))",
+          "type": "panel",
+          "size": "$spatialPatternsPadding"
+        }
+      },
+
+      {
+        "remote_connect_toggle@settings_common.option_toggle": {
+          "ignored": "((not $google_os) and (not $is_ios))",
+          "$option_label": "options.useRemoteConnect",
+          "$option_binding_name": "#use_remote_connect",
+          "$option_enabled_binding_name": "#use_remote_connect_enabled",
+          "$toggle_name": "use_remote_connect"
+        }
+      },
+
+      {
         "paddingInfoLabels": {
           "type": "panel",
           "size": "$spatialPatternsPadding"
@@ -1405,7 +1423,6 @@
     "$bottom_description_text": "resourcePack.description.bottom.global",
     "$selected_label_text": "resourcePack.selected.title.packs",
     "$available_label_text": "resourcePack.available.title.packs",
-    "$realms_label_text": "resourcePack.realmsPlus.title.packs",
     "$unowned_label_text": "resourcePack.suggestedContent.title",
     "$platform_locked": "#platform_locked_global",
     "$view_more_unowned_content_button_text": "resourcePack.suggestedContent.button.viewMore",
@@ -1455,19 +1472,31 @@
     ]
   },
 
-  //Storage management button & section
+  // Storage management button & section
   "storage_management_button@settings_common.section_toggle_base": {
     "$toggle_view_binding_name": "storage_management_button_toggle",
     "enabled": "(not $trial)",
-    "visible": "($is_pregame and not $education_edition_china)",
-    "$button_text": "menu.storageManagement",
+    "visible": "($is_pregame)",
     "$glyph_texture": "textures/ui/storageIcon",
     "$glyph_color_texture": "textures/ui/storageIconColor",
     "$glyph_uv": [ 0, 0 ],
     "$glyph_size": [ 17, 16 ],
-    "$toggle_property_bag": {
-      "#panel_title": "menu.storageManagement"
-    }
+    "variables": [
+      {
+        "requires": "$education_edition",
+        "$button_text": "menu.eduLocalStorage",
+        "$toggle_property_bag": {
+          "#panel_title": "menu.eduLocalStorage"
+        }
+      },
+      {
+        "requires": "(not $education_edition)",
+        "$button_text": "menu.storageManagement",
+        "$toggle_property_bag": {
+          "#panel_title": "menu.storageManagement"
+        }
+      }
+    ]
   },
 
   "storage_management_section@storage_management.storage_main_panel": {
@@ -1499,6 +1528,172 @@
         "source_control_name": "storage_management_button_toggle",
         "source_property_name": "#toggle_state",
         "target_property_name": "#visible"
+      }
+    ]
+  },
+
+  // EDU Cloud Storage button & section
+
+  "edu_cloud_storage_button@settings_common.section_toggle_base": {
+    "ignored": "(not $education_edition or not $edu_save_to_cloud_on)",
+    "$toggle_view_binding_name": "edu_cloud_storage_button_toggle",
+    "$glyph_texture": "textures/ui/debug_glyph",
+    "$glyph_color_texture": "textures/ui/debug_glyph_color",
+    "$glyph_size": [ 16, 16 ],
+    "$button_text": "menu.eduCloudStorage",
+    "$toggle_property_bag": {
+      "#panel_title": "menu.eduCloudStorage"
+    }
+  },
+
+  "edu_cloud_storage_section": {
+    "type": "stack_panel",
+    "ignored": "(not $education_edition or not $edu_save_to_cloud_on)",
+    "size": [ "100%", "100%c" ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "edu_cloud_storage_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        //TTS border affects all sibilings, so need to split header out so its only sibling of border
+        "wrapper_panel": {
+          "type": "panel",
+          "size": [ "100%", "100%cm" ],
+          "controls": [
+            {
+              "tts_border@common.non_interact_focus_border_button": {
+                "tts_inherit_siblings": true,
+                "size": [ "100%sm + 3px", "100%sm" ],
+                "bindings": [
+                  {
+                    "binding_name": "#tts_enabled",
+                    "binding_name_override": "#enabled"
+                  }
+                ]
+              }
+            },
+            {
+              "edu_cloud_storage_header_label": {
+                "type": "label",
+                "text": "#edu_cloud_storage_header_label",
+                "size": [ "100%", "default" ],
+                "color": "$body_text_color",
+                "bindings": [
+                  {
+                    "binding_name": "#edu_cloud_storage_header_label_text",
+                    "binding_name_override": "#edu_cloud_storage_header_label"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "edu_cloud_onedrive_button@common_buttons.light_content_button": {
+          "size": [ "100%", "24px" ],
+          "$button_size_override": [ "100%", "100% - 4px" ],
+          "$button_content": "general_section.edu_cloud_onedrive_button_content",
+          "$pressed_button_name": "button.onedrive_link"
+        }
+      }
+    ]
+  },
+
+  //icon and text need to be centered together, so wrapped under 1 panel that dictates horizontal space
+  "edu_cloud_onedrive_button_content": {
+    "type": "stack_panel",
+    "orientation": "horizontal",
+    "size": [ "100%c", "100%" ],
+    "controls": [
+      {
+        "padded_label@common.empty_panel": {
+          "size": [ "100%c", "100%" ],
+          "controls": [
+            {
+              "label": {
+                "type": "label",
+                "size": [ "default", "default" ],
+                "color": "$text_color",
+                "text": "options.eduCloud.oneDrive"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "padded_icon@common.empty_panel": {
+          "size": [ "100%c", "100%c" ],
+          "controls": [
+            {
+              "icon": {
+                "type": "image",
+                "texture": "textures/ui/icon_external_link",
+                "color": "$glyph_color",
+                "size": [ 9, 9 ],
+                "offset": [ 3, 2 ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "edu_cloud_onedrive_error_popup@popup_dialog.form_fit_modal_dialog_popup": {
+    "$modal_title": "edu.cloudError.unauthorized.title",
+    "$modal_contents": "general_section.edu_cloud_onedrive_error_content",
+    "$popup_dialog_escape_button_name": "button.close_eduCloud_error_popup",
+    "$modal_contents_padding": [ 6, 6 ]
+  },
+
+  "edu_cloud_onedrive_error_content": {
+    "type": "stack_panel",
+    "layer": 5,
+    "size": [ 300, "100%c" ],
+    "controls": [
+      {
+        "body_text_centering_panel2@edu_common.vertical_stack_item": {
+          "controls": [
+            {
+              "body_text2": {
+                "type": "label",
+                "font_type": "smooth",
+                "text": "edu.cloudError.unauthorized.message",
+                "color": "$body_text_color",
+                "size": [ "100%", "default" ],
+                "layer": 1,
+                "anchor_from": "top_middle",
+                "anchor_to": "top_middle"
+              }
+            }
+          ]
+        }
+      },
+      { "padding2@common.empty_panel": { "size": [ "100%sm", 10 ] } },
+      {
+        "learn_more_button@edu_common.underline_button": {
+          "$single_label_size": [ "default", "default" ],
+          "$single_line_font_scale_factor": 1,
+          "$pressed_button_name": "button.eduCloud_learn_more",
+          "$single_line_label_text": "edu.cloudError.generic.linkDescription",
+          "$font_type": "smooth"
+        }
+      },
+      { "padding3@common.empty_panel": { "size": [ "100%sm", 10 ] } },
+      {
+        "ok_button@common_buttons.light_text_button": {
+          "size": [ "100%", 24 ],
+          "$button_text": "gui.ok",
+          "$pressed_button_name": "button.eduCloud_error_ok"
+        }
       }
     ]
   },
@@ -2366,20 +2561,6 @@
         }
       },
       {
-        "vsync_toggle@settings_common.option_toggle": {
-          "ignored": "(not$microsoft_os or not$vsync_video_setting)",
-          "$option_label": "options.vsync",
-          "$option_binding_name": "#vsync",
-          "$option_enabled_binding_name": "#vsync_enabled",
-          "$toggle_name": "vsync",
-          "layer": 1,
-          "controls": [
-            { "vsync_tooltip_option@general_section.vsync_tooltip_option": {} },
-            { "option_generic_core@settings_common.option_generic_core": {} }
-          ]
-        }
-      },
-      {
         "gui_accessibility_scaling_toggle@settings_common.option_toggle": {
           "$option_label": "options.gui.accessibility.scaling",
           "$option_binding_name": "#gui_accessibility_scaling",
@@ -2817,6 +2998,7 @@
                 "type": "input_panel",
                 "consume_hover_events": false,
                 "focus_enabled": true,
+                "tts_skip_message": true,
                 "button_mappings": [
                   {
                     "to_button_id": "button.rtx_warning_is_hovered",
@@ -2835,59 +3017,6 @@
         "binding_name": "#rtx_render_distance_warning_visible",
         "binding_name_override": "#visible"
       }
-    ]
-  },
-
-  "vsync_tooltip_option_image": {
-    "type": "image",
-    "size": [ 7, 11 ],
-    "texture": "textures/ui/infobulb"
-  },
-
-  "vsync_tooltip_option_popup@common.static_tooltip_popup_with_image_and_text": {
-    "size": [ "100% - 4px", "100%cm + 8px" ],
-    "anchor_from": "top_middle",
-    "anchor_to": "bottom_middle",
-    "$tooltip_panel_offset": [ 0, -10 ],
-    "$tooltip_popup_image": "textures/ui/infobulb",
-    "$tooltip_button_binding_type": "global",
-    "$tooltip_button_collection_name": "",
-    "$tooltip_popup_visible_binding|default": "#vsync_tooltip_option_visible",
-    "$tooltip_text_binding_name": "#vsync_tooltip_option_text",
-    "$tooltip_chevron_anchor": "bottom_right",
-    "$tooltip_popup_chevron_offset": [ "-30%x", "100%y - 3px" ]
-  },
-
-  "vsync_tooltip_option": {
-    "type": "panel",
-    "size": [ "100%", 0 ],
-    "anchor_from": "top_right",
-    "anchor_to": "top_right",
-    "controls": [
-      {
-        "vsync_tooltip_option_image@general_section.vsync_tooltip_option_image": {
-          "offset": [ -14, 0 ],
-          "anchor_from": "top_right",
-          "anchor_to": "top_right",
-          "layer": 3,
-          "controls": [
-            {
-              "hover_detection_input_panel": {
-                "type": "input_panel",
-                "consume_hover_events": false,
-                "focus_enabled": true,
-                "button_mappings": [
-                  {
-                    "to_button_id": "button.vsync_tooltip_option_is_hovered",
-                    "mapping_type": "pressed"
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      },
-      { "vsync_tooltip_option_popup@general_section.vsync_tooltip_option_popup": {} }
     ]
   },
 
@@ -2929,6 +3058,7 @@
                 "type": "input_panel",
                 "consume_hover_events": false,
                 "focus_enabled": true,
+                "tts_skip_message": true,
                 "button_mappings": [
                   {
                     "to_button_id": "button.accessibility_scaling_option_is_hovered",
@@ -2982,6 +3112,7 @@
                 "type": "input_panel",
                 "consume_hover_events": false,
                 "focus_enabled": true,
+                "tts_skip_message": true,
                 "button_mappings": [
                   {
                     "to_button_id": "button.improved_input_response_option_is_hovered",
@@ -3036,6 +3167,7 @@
                 "type": "input_panel",
                 "consume_hover_events": false,
                 "focus_enabled": true,
+                "tts_skip_message": true,
                 "$rtx_disabled_option_is_hovered_button_event|default": "button.rtx_disabled_option_is_hovered",
                 "button_mappings": [
                   {
@@ -3097,6 +3229,7 @@
             {
               "hover_detection_input_panel": {
                 "type": "input_panel",
+                "tts_skip_message": true,
                 "consume_hover_events": false,
                 "focus_enabled": true,
                 "$gui_scale_disabled_option_is_hovered_button_event|default": "button.gui_scale_disabled_option_is_hovered",
@@ -3362,6 +3495,28 @@
     ]
   },
   */
+  "csb_info_label@common.minecraftTenLabel": {
+    "text": "options.viewSubscriptions.button.info",
+    "color": "$text_color",
+    "offset": [ 0, -1 ]
+  },
+
+  "csb_cancel_label@common.minecraftTenLabel": {
+    "text": "gui.cancel",
+    "color": "$text_color",
+    "offset": [ 0, -1 ]
+  },
+
+  "csb_buy_label@common.minecraftTenLabel": {
+    "text": "#csb_price",
+    "color": "$text_color",
+    "offset": [ 0, -1 ],
+    "bindings": [
+      {
+        "binding_name": "#csb_price"
+      }
+    ]
+  },
 
   "left_button_label@common.minecraftTenLabel": {
     "$left_button_text|default": "#left_button_text",
@@ -3932,6 +4087,44 @@
     }
   },
 
+  "view_subscriptions_prerelease_section": {
+    "type": "panel",
+    "size": [ "100% - 6px", "100%cm" ],
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "view_subscriptions_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "black_background@general_section.background": {
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "offset": [ 0, 3 ],
+          "size": [ "100%", "100%sm + 2px" ]
+        }
+      },
+      {
+        "renews_text": {
+          "type": "label",
+          "size": [ "100%", "default" ],
+          "color": "$main_header_text_color",
+          "font_type": "smooth",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "layer": 3,
+          "offset": [ 2, 4 ],
+          "text": "options.viewSubscriptions.prereleaseMessage"
+        }
+      }
+    ]
+  },
+
   "view_subscriptions_section": {
     "type": "stack_panel",
     "orientation": "vertical",
@@ -4047,6 +4240,373 @@
               "binding_name_override": "#collection_length"
             }
           ]
+        }
+      },
+      //csb purchased panel
+      {
+        "csb_purchased_container": {
+          "ignored": "$pre_release",
+          "type": "panel",
+          "size": [ "100%", "100px" ],
+          "controls": [
+            {
+              "fill": {
+                "type": "image",
+                "size": [ "100%", "100%" ],
+                "texture": "textures/ui/White",
+                "color": [ 0.15, 0.14, 0.14 ],
+                "keep_ratio": false,
+                "alpha": 1.0
+              }
+            },
+            {
+              "content_container": {
+                "ignored": "$pre_release",
+                "type": "stack_panel",
+                "orientation": "horizontal",
+                "size": [ "100%", "100px" ],
+                "controls": [
+                  {
+                    "padding_01": {
+                      "ignored": "$pre_release",
+                      "type": "panel",
+                      "size": [ 5, "100%" ]
+                    }
+                  },
+                  {
+                    "side_image_stack_left": {
+                      "ignored": "$pre_release",
+                      "type": "stack_panel",
+                      "orientation": "vertical",
+                      "size": [ "50%", "100%" ],
+                      "controls": [
+                        {
+                          "csb_image": {
+                            "type": "image",
+                            "size": [ "100%", "100%" ],
+                            "anchor_from": "top_right",
+                            "anchor_to": "center",
+                            "layer": 3,
+                            "texture": "textures/ui/csb_subscribe_banner"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "padding_02": {
+                      "ignored": "$pre_release",
+                      "type": "panel",
+                      "size": [ 2, "100%" ]
+                    }
+                  },
+                  //Right Stack
+                  {
+                    "side_stack_right": {
+                      "ignored": "$pre_release",
+                      "type": "stack_panel",
+                      "orientation": "vertical",
+                      "anchor_from": "top_right",
+                      "size": [ "45%", "100px" ],
+                      "controls": [
+
+                        //Vertical stack
+                        {
+                          "interior_content_stack": {
+                            "ignored": "$pre_release",
+                            "type": "stack_panel",
+                            "orientation": "vertical",
+                            "size": [ "100%", "100%" ],
+                            "layer": 3,
+                            "controls": [
+                              {
+                                "panel_label": {
+                                  "type": "label",
+                                  "anchor_from": "top_right",
+                                  "anchor_to": "top_right",
+                                  "text": "options.csbHeading",
+                                  "font_type": "MinecraftTen",
+                                  "backup_font_type": "UIFont",
+                                  "color": "$generic_button_text_color",
+                                  "text_alignment": "left",
+                                  "font_scale_factor": 1.0,
+                                  "size": [ "100%", "10px" ]
+                                }
+                              },
+
+                              {
+                                "interior_top_padding": {
+                                  "ignored": "$pre_release",
+                                  "type": "panel",
+                                  "size": [ "100%", 2 ]
+                                }
+                              },
+                              {
+                                "descriptionPanel": {
+                                  "ignored": "$pre_release",
+                                  "type": "stack_panel",
+                                  "anchor_to": "top_left",
+                                  "orientation": "vertical",
+                                  "size": [ "50%", "10px" ],
+                                  "controls": [
+                                    {
+                                      "interior_label_panel": {
+                                        "type": "panel",
+                                        "size": [ "100%", "100%" ],
+                                        "controls": [
+                                          {
+                                            "panel_label": {
+                                              "type": "label",
+                                              "text": "options.csbSubheading",
+                                              "font_type": "smooth",
+                                              "offset": [ 0, -1 ],
+                                              "font_scale_factor": 0.7,
+                                              "max_size": [ "100%", "100%" ],
+                                              "color": "$0_color_format",
+                                              "text_alignment": "center",
+                                              "anchor_from": "center",
+                                              "anchor_to": "center",
+                                              "layer": 3
+                                            }
+                                          },
+                                          {
+                                            "background_panel": {
+                                              "type": "image",
+                                              "size": [ "100%", "80%" ],
+                                              "anchor_from": "left_middle",
+                                              "anchor_to": "left_middle",
+                                              "keep_ratio": false,
+                                              "texture": "textures/ui/White",
+                                              "color": [ 1, 0.85, 0.33 ]
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "interior_top_padding00": {
+                                  "ignored": "$pre_release",
+                                  "type": "panel",
+                                  "size": [ "100%", 2 ]
+                                }
+                              },
+
+                              {
+                                "interior_top_padding01": {
+                                  "ignored": "$pre_release",
+                                  "type": "panel",
+                                  "size": [ "100%", 2 ]
+                                }
+                              },
+                              {
+                                "ln_01_container": {
+                                  "type": "stack_panel",
+                                  "orientation": "horizontal",
+                                  "size": [ "100%", "20%+5px" ],
+                                  "controls": [
+                                    {
+                                      "bullet_01": {
+                                        "type": "label",
+                                        "text": "■",
+                                        "font_type": "Minecraft",
+                                        "backup_font_type": "UIFont",
+                                        "color": "$generic_button_text_color",
+                                        "text_alignment": "left",
+                                        "font_scale_factor": 0.5,
+                                        "size": [ "10%", "100%" ]
+                                      }
+                                    },
+
+                                    {
+                                      "panel_details_ln1": {
+                                        "type": "label",
+                                        "anchor_from": "top_right",
+                                        "anchor_to": "top_right",
+                                        "text": "options.csbInfoLine01",
+                                        "font_type": "smooth",
+                                        "backup_font_type": "UIFont",
+                                        "color": "$generic_button_text_color",
+                                        "text_alignment": "left",
+                                        "font_scale_factor": 0.8,
+                                        "size": [ "90%", "100%" ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "ln_02_container": {
+                                  "type": "stack_panel",
+                                  "orientation": "horizontal",
+                                  "size": [ "100%", "20%" ],
+                                  "controls": [
+                                    {
+                                      "bullet_02": {
+                                        "type": "label",
+                                        "text": "■",
+                                        "font_type": "Minecraft",
+                                        "backup_font_type": "UIFont",
+                                        "color": "$generic_button_text_color",
+                                        "text_alignment": "left",
+                                        "font_scale_factor": 0.5,
+                                        "size": [ "10%", "100%" ]
+                                      }
+                                    },
+                                    {
+                                      "panel_details_ln3": {
+                                        "type": "label",
+                                        "anchor_from": "top_right",
+                                        "anchor_to": "top_right",
+                                        "text": "options.csbInfoLine02",
+                                        "font_type": "smooth",
+                                        "backup_font_type": "UIFont",
+                                        "color": "$generic_button_text_color",
+                                        "text_alignment": "left",
+                                        "font_scale_factor": 0.8,
+                                        "size": [ "90%", "100%" ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "interior_top_padding02": {
+                                  "ignored": "$pre_release",
+                                  "type": "panel",
+                                  "size": [ "100%", 1 ]
+                                }
+                              },
+                              {
+                                "csb_buttons": {
+                                  "type": "stack_panel",
+                                  "anchor_from": "bottom_right",
+                                  "orientation": "horizontal",
+                                  "size": [ "100%", "22%" ],
+                                  "controls": [
+                                    {
+                                      "csb_cancel_button@common_buttons.light_text_button": {
+                                        "size": [ "50% - 2px", "100%" ],
+                                        "$button_offset|default": [ 0, -2 ],
+                                        "$font_type": "MinecraftTen",
+                                        "$button_text": "gui.cancel",
+                                        "$pressed_button_name": "button.csb_cancel"
+                                      }
+                                    },
+                                    {
+                                      "padding_01": {
+                                        "ignored": "$pre_release",
+                                        "type": "panel",
+                                        "size": [ 3, "100%" ]
+                                      }
+                                    },
+                                    {
+                                      "csb_info_button@common_buttons.light_text_button": {
+                                        "size": [ "50% - 2px", "100%" ],
+                                        "$button_offset|default": [ 0, -2 ],
+                                        "$font_type": "MinecraftTen",
+                                        "$button_text": "options.viewSubscriptions.button.info",
+                                        "$pressed_button_name": "button.csb_info"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bottom_stack_padding": {
+                                  "ignored": "$pre_release",
+                                  "type": "panel",
+                                  "size": [ 5, "100%" ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#csb_purchased_panel_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "csb_expiration_container": {
+          "debug": "red",
+          "type": "panel",
+          "size": [ "100%", 11 ],
+          "layer": 1,
+          "controls": [
+            {
+              "csb_expiration_text_container": {
+                "ignored": "$pre_release",
+                "type": "stack_panel",
+                "orientation": "horizontal",
+                "size": [ "100%", "100%" ],
+                "controls": [
+                  {
+                    "csb_expiration_text_padding": {
+                      "ignored": "$pre_release",
+                      "type": "panel",
+                      "size": [ 2, "100%" ]
+                    }
+                  },
+                  {
+                    "csb_expiration": {
+                      "ignored": "$pre_release",
+                      "type": "label",
+                      "font_type": "smooth",
+                      "text": "#csb_expiration",
+                      "anchor_from": "left_middle",
+                      "anchor_to": "left_middle",
+                      "color": "$generic_button_text_color",
+                      "text_alignment": "left",
+                      "offset": [ 0, 1 ],
+                      "layer": 3,
+                      "size": [ "100%", 10 ],
+                      "bindings": [
+                        {
+                          "binding_name": "#csb_expiration"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "background_panel": {
+                "type": "image",
+                "size": [ "100%", "100%" ],
+                "layer": 1,
+                "keep_ratio": false,
+                "texture": "textures/ui/White",
+                "color": "$0_color_format"
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#expiration_container_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "csb_expiration_padding": {
+          "ignored": "$pre_release",
+          "type": "panel",
+          "size": [ "100%", 3 ]
         }
       },
       {
@@ -4179,6 +4739,331 @@
               "binding_name_override": "#visible",
               "binding_type": "collection",
               "binding_collection_name": "$realm_collection_name"
+            }
+          ]
+        }
+      },
+      {
+        "pad_8": {
+          "ignored": "$pre_release",
+          "type": "panel",
+          "size": [ "100%", 6 ]
+        }
+      },
+      //csb panel
+      {
+        "csb_container": {
+          "ignored": "$pre_release",
+          "type": "panel",
+          "size": [ "100%", "100px" ],
+          "controls": [
+            {
+              "fill": {
+                "type": "image",
+                "size": [ "100%", "100%" ],
+                "texture": "textures/ui/White",
+                "color": [ 0.15, 0.14, 0.14 ],
+                "keep_ratio": false,
+                "alpha": 1.0
+              }
+            },
+            {
+              "content_container": {
+                "ignored": "$pre_release",
+                "type": "stack_panel",
+                "orientation": "horizontal",
+                "size": [ "100%", "100px" ],
+                "controls": [
+                  {
+                    "padding_01": {
+                      "ignored": "$pre_release",
+                      "type": "panel",
+                      "size": [ 5, "100%" ]
+                    }
+                  },
+                  {
+                    "side_image_stack_left": {
+                      "ignored": "$pre_release",
+                      "type": "stack_panel",
+                      "orientation": "vertical",
+                      "size": [ "50%", "100%" ],
+                      "controls": [
+                        {
+                          "csb_image": {
+                            "type": "image",
+                            "size": [ "100%", "100%" ],
+                            "anchor_from": "top_right",
+                            "anchor_to": "center",
+                            "layer": 3,
+                            "texture": "textures/ui/csb_subscribe_banner"
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "padding_02": {
+                      "ignored": "$pre_release",
+                      "type": "panel",
+                      "size": [ 2, "100%" ]
+                    }
+                  },
+                  //Right Stack
+                  {
+                    "side_stack_right": {
+                      "ignored": "$pre_release",
+                      "type": "stack_panel",
+                      "orientation": "vertical",
+                      "anchor_from": "top_right",
+                      "size": [ "45%", "100px" ],
+                      "controls": [
+
+                        //Vertical stack
+                        {
+                          "interior_content_stack": {
+                            "ignored": "$pre_release",
+                            "type": "stack_panel",
+                            "orientation": "vertical",
+                            "size": [ "100%", "100%" ],
+                            "layer": 3,
+                            "controls": [
+                              {
+                                "panel_label": {
+                                  "type": "label",
+                                  "anchor_from": "top_right",
+                                  "anchor_to": "top_right",
+                                  "text": "options.csbHeading",
+                                  "font_type": "MinecraftTen",
+                                  "backup_font_type": "UIFont",
+                                  "color": "$generic_button_text_color",
+                                  "text_alignment": "left",
+                                  "font_scale_factor": 1.0,
+                                  "size": [ "100%", "10px" ]
+                                }
+                              },
+
+                              {
+                                "interior_top_padding": {
+                                  "ignored": "$pre_release",
+                                  "type": "panel",
+                                  "size": [ "100%", 2 ]
+                                }
+                              },
+                              {
+                                "descriptionPanel": {
+                                  "ignored": "$pre_release",
+                                  "type": "stack_panel",
+                                  "anchor_to": "top_left",
+                                  "orientation": "vertical",
+                                  "size": [ "50%", "10px" ],
+                                  "controls": [
+                                    {
+                                      "interior_label_panel": {
+                                        "type": "panel",
+                                        "size": [ "100%", "100%" ],
+                                        "controls": [
+                                          {
+                                            "panel_label": {
+                                              "type": "label",
+                                              "text": "options.csbSubheading",
+                                              "font_type": "smooth",
+                                              "offset": [ 0, -1 ],
+                                              "font_scale_factor": 0.7,
+                                              "max_size": [ "100%", "100%" ],
+                                              "color": "$0_color_format",
+                                              "text_alignment": "center",
+                                              "anchor_from": "center",
+                                              "anchor_to": "center",
+                                              "layer": 3
+                                            }
+                                          },
+                                          {
+                                            "background_panel": {
+                                              "type": "image",
+                                              "size": [ "100%", "80%" ],
+                                              "anchor_from": "left_middle",
+                                              "anchor_to": "left_middle",
+                                              "keep_ratio": false,
+                                              "texture": "textures/ui/White",
+                                              "color": [ 1, 0.85, 0.33 ]
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "interior_top_padding00": {
+                                  "ignored": "$pre_release",
+                                  "type": "panel",
+                                  "size": [ "100%", 2 ]
+                                }
+                              },
+
+                              {
+                                "interior_top_padding01": {
+                                  "ignored": "$pre_release",
+                                  "type": "panel",
+                                  "size": [ "100%", 2 ]
+                                }
+                              },
+                              {
+                                "ln_01_container": {
+                                  "type": "stack_panel",
+                                  "orientation": "horizontal",
+                                  "size": [ "100%", "20%+5px" ],
+                                  "controls": [
+                                    {
+                                      "bullet_01": {
+                                        "type": "label",
+                                        "text": "■",
+                                        "font_type": "Minecraft",
+                                        "backup_font_type": "UIFont",
+                                        "color": "$generic_button_text_color",
+                                        "text_alignment": "left",
+                                        "font_scale_factor": 0.5,
+                                        "size": [ "10%", "100%" ]
+                                      }
+                                    },
+
+                                    {
+                                      "panel_details_ln1": {
+                                        "type": "label",
+                                        "anchor_from": "top_right",
+                                        "anchor_to": "top_right",
+                                        "text": "options.csbInfoLine01",
+                                        "font_type": "smooth",
+                                        "backup_font_type": "UIFont",
+                                        "color": "$generic_button_text_color",
+                                        "text_alignment": "left",
+                                        "font_scale_factor": 0.8,
+                                        "size": [ "90%", "100%" ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "ln_02_container": {
+                                  "type": "stack_panel",
+                                  "orientation": "horizontal",
+                                  "size": [ "100%", "20%" ],
+                                  "controls": [
+                                    {
+                                      "bullet_02": {
+                                        "type": "label",
+                                        "text": "■",
+                                        "font_type": "Minecraft",
+                                        "backup_font_type": "UIFont",
+                                        "color": "$generic_button_text_color",
+                                        "text_alignment": "left",
+                                        "font_scale_factor": 0.5,
+                                        "size": [ "10%", "100%" ]
+                                      }
+                                    },
+                                    {
+                                      "panel_details_ln3": {
+                                        "type": "label",
+                                        "anchor_from": "top_right",
+                                        "anchor_to": "top_right",
+                                        "text": "options.csbInfoLine02",
+                                        "font_type": "smooth",
+                                        "backup_font_type": "UIFont",
+                                        "color": "$generic_button_text_color",
+                                        "text_alignment": "left",
+                                        "font_scale_factor": 0.8,
+                                        "size": [ "90%", "100%" ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "interior_top_padding02": {
+                                  "ignored": "$pre_release",
+                                  "type": "panel",
+                                  "size": [ "100%", 1 ]
+                                }
+                              },
+                              {
+                                "csb_buttons": {
+                                  "type": "stack_panel",
+                                  "anchor_from": "bottom_right",
+                                  "orientation": "horizontal",
+                                  "size": [ "100%", "22%" ],
+                                  "controls": [
+                                    {
+                                      "csb_info_button@common_buttons.light_text_button": {
+                                        "size": [ "50% - 2px", "100%" ],
+                                        "$button_offset|default": [ 0, -2 ],
+                                        "$font_type": "MinecraftTen",
+                                        "$button_text": "options.viewSubscriptions.button.info",
+                                        "$pressed_button_name": "button.csb_info"
+                                      }
+                                    },
+                                    {
+                                      "padding_01": {
+                                        "ignored": "$pre_release",
+                                        "type": "panel",
+                                        "size": [ 3, "100%" ]
+                                      }
+                                    },
+                                    {
+                                      "buyButtonContainer": {
+                                        "ignored": "$pre_release",
+                                        "type": "panel",
+                                        "size": [ "50% - 2px", "100%" ],
+                                        "controls": [
+                                          {
+                                            "csb_buy_button@common_buttons.light_text_button": {
+                                              "size": [ "100%", "100%" ],
+                                              "$button_offset|default": [ 0, -2 ],
+                                              "$font_type": "MinecraftTen",
+                                              "$button_text": "#csb_price_text",
+                                              "$button_text_binding_type": "global",
+                                              "$pressed_button_name": "button.csb_buy",
+                                              "bindings": [
+                                                {
+                                                  "binding_name": "#csb_price_text"
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        ],
+                                        "bindings": [
+                                          {
+                                            "binding_name": "#is_Eligible_Platform",
+                                            "binding_name_override": "#visible"
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              {
+                                "bottom_stack_padding": {
+                                  "ignored": "$pre_release",
+                                  "type": "panel",
+                                  "size": [ 5, "100%" ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#csb_buy_panel_visible",
+              "binding_name_override": "#visible"
             }
           ]
         }
@@ -5301,6 +6186,54 @@
               "binding_condition": "visible"
             }
           ]
+        }
+      }
+    ]
+  },
+
+  // PREVIEW button & section
+
+  "preview_button@settings_common.section_toggle_base": {
+    "ignored": "($trial or $pre_release or (not $is_ps4))",
+    "$toggle_view_binding_name": "preview_button_toggle",
+    "$glyph_texture": "textures/ui/debug_glyph",
+    "$glyph_color_texture": "textures/ui/debug_glyph_color",
+    "$glyph_size": [ 15, 15 ],
+    "$button_text": "offer.preview",
+    "$toggle_property_bag": {
+      "#panel_title": "offer.preview"
+    }
+  },
+
+  "preview_section": {
+    "ignored": "($trial or $pre_release or (not $is_ps4))",
+    "type": "stack_panel",
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "preview_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "spacer_0": {
+          "type": "panel",
+          "size": [ 0, 10 ]
+        }
+      },
+      {
+        "generic_label@settings_common.white_label": {
+          "size": [ "100%", 30 ],
+          "text_alignment": "center",
+          "$text": "offer.sony_preview_description"
+        }
+      },
+      {
+        "preview_store_launch_button@settings_common.action_button": {
+          "$pressed_button_name": "button.ps4preview",
+          "$button_text": "offer.ps4_preview"
         }
       }
     ]
@@ -6636,7 +7569,15 @@
         }
       },
       {
-        "option_toggle_assertions_show_dialog_spacer": {
+        "option_dev_force_trial_mode@settings_common.option_toggle": {
+          "$option_label": "options.dev_force_trial_mode",
+          "$option_binding_name": "#dev_force_trial_mode",
+          "$option_enabled_binding_name": "#dev_force_trial_mode_enabled",
+          "$toggle_name": "dev_force_trial_mode"
+        }
+      },
+      {
+        "option_dev_force_trial_mode_spacer": {
           "type": "panel",
           "size": [ "100%", 6 ]
         }
@@ -6653,11 +7594,11 @@
         "debug_overlay_button_panel@common.empty_panel": {
           "size": [ "100%", "60%c" ],
           "controls": [
-             {
+            {
               "debug_overlay_previous_button@settings_common.action_button": {
                 "$pressed_button_name": "button.cycle_previous_debug_overlay_page",
                 "$button_text": "Previous Page",
-                "size": ["50%", 30],
+                "size": [ "50%", 30 ],
                 "anchor_from": "top_left",
                 "anchor_to": "top_left"
               }
@@ -6666,7 +7607,7 @@
               "debug_overlay_next_button@settings_common.action_button": {
                 "$pressed_button_name": "button.cycle_next_debug_overlay_page",
                 "$button_text": "Next Page",
-                "size": ["50%", 30],
+                "size": [ "50%", 30 ],
                 "anchor_from": "top_right",
                 "anchor_to": "top_right"
               }
@@ -6739,14 +7680,6 @@
         }
       },
       {
-        "option_dev_controltower_override_transport_layer@settings_common.option_toggle": {
-          "$option_label": "options.dev_controltower_override_transport_layer",
-          "$option_binding_name": "#dev_controltower_override_transport_layer",
-          "$option_enabled_binding_name": "#dev_controltower_override_transport_layer_enabled",
-          "$toggle_name": "dev_controltower_override_transport_layer"
-        }
-      },
-      {
         //  Should be close to Feature Toggle options (right after option_toggle_0_0)
         "option_slider_side_by_side_comparison_rate@settings_common.option_slider": {
           "$option_label": "#dev_side_by_side_comparison_rate_slider_label",
@@ -6770,6 +7703,17 @@
           "$dropdown_name": "dev_transport_layer_dropdown",
           "$options_dropdown_toggle_label_binding": "#dev_transport_layer_dropdown_toggle_label",
           "$option_enabled_binding_name": "#dev_transport_layer_dropdown_enabled",
+          "$dropdown_scroll_content_size": [ "100%", "200%" ]
+        }
+      },
+      {
+        "option_dropdown_nethernet_logging_verbosity@settings_common.option_dropdown": {
+          "$option_label": "options.dev_nethernet_logging_verbosity",
+          "$dropdown_content": "general_section.dev_nethernet_logging_verbosity_dropdown_content",
+          "$dropdown_area": "content_area",
+          "$dropdown_name": "dev_nethernet_logging_verbosity_dropdown",
+          "$options_dropdown_toggle_label_binding": "#dev_nethernet_logging_verbosity_dropdown_toggle_label",
+          "$option_enabled_binding_name": "#dev_nethernet_logging_verbosity_dropdown_enabled",
           "$dropdown_scroll_content_size": [ "100%", "200%" ]
         }
       },
@@ -7130,6 +8074,17 @@
         "mock_http_panel@general_section.mock_http_panel": {}
       },
       {
+        "vsync_dropdown@settings_common.option_dropdown": {
+          "$option_label": "options.vsync",
+          "$dropdown_content": "general_section.vysnc_dropdown_content",
+          "$dropdown_area": "content_area",
+          "$dropdown_name": "vsync_dropdown",
+          "$options_dropdown_toggle_label_binding": "#vsync_dropdown_toggle_label",
+          "$option_enabled_binding_name": "#vsync_dropdown_enabled",
+          "$dropdown_scroll_content_size": [ "100%", "200%" ]
+        }
+      },
+      {
         "option_dropdown_1@settings_common.option_dropdown": {
           "$option_label": "options.dev_realmsEnvironment",
           "$dropdown_content": "general_section.dev_realms_environment_dropdown_content",
@@ -7219,15 +8174,6 @@
               "binding_name_override": "#visible"
             }
           ]
-        }
-      },
-      {
-        "gathering_override@settings_common.option_text_edit": {
-          "$option_label": "options.dev.gathering_config_id_override",
-          "$option_binding_name": "#gathering_config_id_override_text_box",
-          "$option_enabled_binding_name": "#gathering_config_id_override_text_box_enabled",
-          "$max_text_edit_length": 40,
-          "$text_box_name": "gathering_config_id_override_text_box"
         }
       },
       {
@@ -7353,10 +8299,6 @@
       }
     ]
   },
-
-
-
-
 
   "marketplace_debug_button@settings_common.section_toggle_base": {
     "$toggle_view_binding_name": "marketplace_debug_button_toggle",
@@ -7592,6 +8534,239 @@
         "binding_type": "collection",
         "binding_collection_name": "marketplace_feature_toggles"
       }
+    ]
+  },
+
+  "gatherings_debug_button@settings_common.section_toggle_base": {
+    "$toggle_view_binding_name": "gatherings_debug_button_toggle",
+    "$glyph_texture": "textures/ui/onlineLight",
+    "$glyph_color_texture": "textures/ui/onlineLight",
+    "$glyph_size": [ 18, 18 ],
+    "$button_text": "options.dev_gatherings_section",
+    "$toggle_property_bag": {
+      "#panel_title": "options.dev_gatherings_section"
+    }
+  },
+
+  "gatherings_debug_section": {
+    "type": "stack_panel",
+    "size": [ "100%", "100%c" ],
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_type": "view",
+        "source_control_name": "gatherings_debug_button_toggle",
+        "source_property_name": "#toggle_state",
+        "target_property_name": "#visible"
+      }
+    ],
+    "controls": [
+      {
+        "gatherings_enabled_label": {
+          "type": "label",
+          "text": "#gatherings_enabled_label_text",
+          "size": [ "100%", "default" ],
+          "color": "$body_text_color",
+          "bindings": [
+            {
+              "binding_name": "#gatherings_enabled_label_text"
+            }
+          ]
+        }
+      },
+      {
+        "enable_gatherings_button@settings_common.action_button": {
+          "$pressed_button_name": "button.enable_gatherings",
+          "$button_text": "#enable_gatherings_button_text",
+          "$button_text_binding_type": "global",
+          "visible": false,
+          "bindings": [
+            {
+              "binding_name_override": "#visible",
+              "binding_name": "#gatherings_button_enabled"
+            }
+          ]
+        }
+      },
+      {
+        "spacer_1": {
+          "type": "panel",
+          "size": [ "100%", 10 ]
+        }
+      },
+      {
+        "add_gathering_stack": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [ "100%", 40 ],
+          "use_child_anchors": true,
+          "controls": [
+            {
+              "gathering_text_box@settings_common.option_text_edit": {
+                "size": [ "fill", "100%c" ],
+                "$option_label": "options.dev_gatherings_add_gathering",
+                "$option_binding_name": "#add_gathering_text_box",
+                "$option_enabled_binding_name": "#add_gathering_text_box_enabled",
+                "$max_text_edit_length": 40,
+                "$text_box_name": "add_gathering_text_box"
+              }
+            },
+            {
+              "add_button@common_buttons.light_text_button": {
+                "$pressed_button_name": "button.add_gathering",
+                "size": [ 40, "100%" ],
+                "$button_text": "options.dev_addLabel"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "spacer_2": {
+          "type": "panel",
+          "size": [ "100%", 10 ]
+        }
+      },
+      {
+        "active_gathering_label": {
+          "type": "label",
+          "text": "#active_gathering_text",
+          "color": "$body_text_color",
+          "bindings": [
+            {
+              "binding_name": "#active_gathering_text"
+            }
+          ]
+        }
+      },
+      {
+        "spacer_3": {
+          "type": "panel",
+          "size": [ "100%", 10 ]
+        }
+      },
+      {
+        "available_gatherings_section@available_gatherings_section": {}
+      }
+    ]
+  },
+
+  "gathering_grid_item_content": {
+    "type": "stack_panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "orientation": "vertical",
+    "size": [ "100%", 29 ],
+    "offset": [ 5, 4 ],
+    "controls": [
+      {
+        "gathering_name": {
+          "type": "label",
+          "color": "$light_button_default_text_color",
+          "text": "#gathering_name",
+          "size": [ "100% - 8px", 10 ],
+          "bindings": [
+            {
+              "binding_name": "#gathering_name",
+              "binding_type": "collection",
+              "binding_collection_name": "$collection_binding_name",
+              "binding_condition": "always"
+            }
+          ]
+        }
+      },
+      {
+        "gathering_uuid": {
+          "type": "label",
+          "color": "$light_button_default_text_color",
+          "text": "#gathering_uuid",
+          "size": [ "100% - 8px", 10 ],
+          "bindings": [
+            {
+              "binding_name": "#gathering_uuid",
+              "binding_type": "collection",
+              "binding_collection_name": "$collection_binding_name",
+              "binding_condition": "always"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "gathering_item_template": {
+    "type": "panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "size": [ "100%", 29 ],
+    "controls": [
+      {
+        "gathering_item_button@common_buttons.light_content_button": {
+          "$pressed_button_name": "select_gathering",
+          "size": [ "100%", 29 ],
+          "$button_content": "general_section.gathering_grid_item_content",
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "$collection_binding_name"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  "available_gatherings_grid": {
+    "type": "grid",
+    "size": [ "100%", "default" ],
+    "grid_item_template": "general_section.gathering_item_template",
+    "grid_dimension_binding": "#gatherings_grid_dimension",
+    "$collection_binding_name": "gatherings_collection",
+    "collection_name": "gatherings_collection",
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "bindings": [
+      {
+        "binding_name": "#gatherings_grid_dimension",
+        "binding_condition": "always"
+      }
+    ]
+  },
+
+  "available_gatherings_panel": {
+    "type": "stack_panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "orientation": "vertical",
+    "size": "$available_gatherings_panel_size",
+    "controls": [
+      {
+        "available_label@settings_common.selector_group_label": {
+          "offset": [ 2, 0 ],
+          "text": "options.dev_gatherings_available_gatherings",
+          "layer": 2
+        }
+      },
+      { "gatherings_grid@available_gatherings_grid": {} },
+      {
+        "spacing_gap": {
+          "type": "panel",
+          "size": [ "100%", 10 ]
+        }
+      }
+    ]
+  },
+
+  "available_gatherings_section": {
+    "type": "stack_panel",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "orientation": "vertical",
+    "$available_gatherings_panel_size": [ "100% - 1px", "100%c" ],
+    "size": [ "100%", "100%c" ],
+    "controls": [
+      { "available_gatherings_panel@available_gatherings_panel": {} }
     ]
   },
 
@@ -8040,17 +9215,10 @@
         }
       },
       {
-        "dev_option_enable_ore_ui_play_screen_preview_button@settings_common.option_toggle": {
-          "$option_label": "Show Play screen opt-in button",
-          "$option_binding_name": "#dev_option_enable_ore_ui_play_screen_preview_button",
-          "$toggle_name": "dev_option_enable_ore_ui_play_screen_preview_button"
-        }
-      },
-      {
-        "dev_option_enable_ore_ui_edit_world_preview_button@settings_common.option_toggle": {
-          "$option_label": "Show Edit World screen opt-in button",
-          "$option_binding_name": "#dev_option_enable_ore_ui_edit_world_preview_button",
-          "$toggle_name": "dev_option_enable_ore_ui_edit_world_preview_button"
+        "dev_option_enable_ore_ui_play_screen_servers_preview_button@settings_common.option_toggle": {
+          "$option_label": "Show Play screen Servers tab opt-in button",
+          "$option_binding_name": "#dev_option_enable_ore_ui_play_screen_servers_preview_button",
+          "$toggle_name": "dev_option_enable_ore_ui_play_screen_servers_preview_button"
         }
       },
       {
@@ -8127,25 +9295,11 @@
         }
       },
       {
-        "dev_new_player_mode_label": {
-          "type": "label",
-          "text": "#text",
-          "size": [ "100%", 12 ],
-          "color": "$option_description_text_color",
-          "bindings": [
-            {
-              "binding_name": "#dev_new_player_mode_debug_text",
-              "binding_name_override": "#text"
-            }
-          ]
-        }
-      },
-      {
         "option_toggle_force_new_player@settings_common.option_toggle": {
           "$option_label": "Force 'new player' mode",
-          "$option_binding_name": "#dev_force_new_player_mode",
-          "$option_enabled_binding_name": "#dev_force_new_player_mode_enabled",
-          "$toggle_name": "dev_force_new_player_mode"
+          "$option_binding_name": "#dev_force_new_player_flow",
+          "$option_enabled_binding_name": "#dev_force_new_player_flow_enabled",
+          "$toggle_name": "dev_force_new_player_flow"
         }
       },
       {
@@ -8196,14 +9350,6 @@
               "binding_name": "$option_label"
             }
           ]
-        }
-      },
-      {
-        "option_resizable_ui@settings_common.option_toggle": {
-          "$option_label": "options.resizableUI",
-          "$option_binding_name": "#resizable_ui",
-          "$option_enabled_binding_name": "#resizable_ui_enabled",
-          "$toggle_name": "resizable_ui"
         }
       },
       {
@@ -8501,7 +9647,6 @@
     "$glyph_color_texture": "textures/ui/how_to_play_button_default",
     "$glyph_size": [ 15, 15 ],
     "$button_text": "menu.howToPlay",
-    "visible": "(not $education_edition_china)",
     "$toggle_property_bag": {
       "#panel_title": "menu.howToPlay"
     }
@@ -8703,14 +9848,54 @@
     "$radio_buttons": [
       {
         "@settings_common.radio_with_label": {
-          "$toggle_state_binding_name": "#transport_layer_raknet",
-          "$radio_label_text": "options.dev_transport_layer.raknet"
+          "$toggle_state_binding_name": "#transport_layer_nethernet_websockets",
+          "$radio_label_text": "options.dev_transport_layer.nethernet_websockets"
         }
       },
       {
         "@settings_common.radio_with_label": {
-          "$toggle_state_binding_name": "#transport_layer_nethernet_websockets",
-          "$radio_label_text": "options.dev_transport_layer.nethernet_websockets"
+          "$toggle_state_binding_name": "#transport_layer_raknet",
+          "$radio_label_text": "options.dev_transport_layer.raknet"
+        }
+      }
+    ]
+  },
+  "dev_nethernet_logging_verbosity_dropdown_content@settings_common.option_radio_dropdown_group": {
+    "$radio_buttons": [
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#dev_nethernet_logging_verbosity_disabled",
+          "$radio_label_text": "options.dev_nethernet_logging_verbosity.disabled"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#dev_nethernet_logging_verbosity_criticalonly",
+          "$radio_label_text": "options.dev_nethernet_logging_verbosity.criticalonly"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#dev_nethernet_logging_verbosity_error",
+          "$radio_label_text": "options.dev_nethernet_logging_verbosity.error"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#dev_nethernet_logging_verbosity_warning",
+          "$radio_label_text": "options.dev_nethernet_logging_verbosity.warning"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#dev_nethernet_logging_verbosity_information",
+          "$radio_label_text": "options.dev_nethernet_logging_verbosity.information"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#dev_nethernet_logging_verbosity_verbose",
+          "$radio_label_text": "options.dev_nethernet_logging_verbosity.verbose"
         }
       }
     ]
@@ -8931,6 +10116,28 @@
         "@settings_common.radio_with_label": {
           "$toggle_state_binding_name": "#dev_connection_veryslow",
           "$radio_label_text": "options.dev_connection_veryslow"
+        }
+      }
+    ]
+  },
+  "vysnc_dropdown_content@settings_common.option_radio_dropdown_group": {
+    "$radio_buttons": [
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#vsync_off",
+          "$radio_label_text": "options.vsync.off"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#vsync_on",
+          "$radio_label_text": "options.vsync.on"
+        }
+      },
+      {
+        "@settings_common.radio_with_label": {
+          "$toggle_state_binding_name": "#vsync_adaptive",
+          "$radio_label_text": "options.vsync.adaptive"
         }
       }
     ]
@@ -9206,11 +10413,37 @@
         }
       },
       {
-        "bloom_toggle@settings_common.option_toggle": {
-          "$option_label": "options.bloomEnable",
-          "$option_binding_name": "#bloom_toggle",
-          "$option_enabled_binding_name": "#bloom_toggle_enabled",
-          "$toggle_name": "bloom_toggle",
+        "volumetric_fog_quality_slider@settings_common.option_slider": {
+          "$option_label": "#volumetric_fog_quality_slider_label",
+          "$slider_name": "volumetric_fog_quality",
+          "$slider_value_binding_name": "#volumetric_fog_quality",
+          "$slider_tts_text_value": "#volumetric_fog_quality_text_value",
+          "$slider_steps_binding_name": "#volumetric_fog_quality_steps",
+          "$label_bindings": [
+            {
+              "binding_name": "$option_label"
+            }
+          ],
+          "bindings": [
+            {
+              "binding_name": "#graphics_mode_is_deferred",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "bloom_strength@settings_common.option_slider": {
+          "$option_label": "#bloom_strength_slider_label",
+          "$slider_name": "bloom_strength",
+          "$slider_value_binding_name": "#bloom_strength",
+          "$slider_tts_text_value": "#bloom_strength_text_value",
+          "$option_enabled_binding_name": "#bloom_strength_enabled",
+          "$label_bindings": [
+            {
+              "binding_name": "$option_label"
+            }
+          ],
           "bindings": [
             {
               "binding_name": "#graphics_mode_is_deferred",
@@ -9270,7 +10503,7 @@
             }
           ]
         }
-      }     
+      }
     ]
   }
 }
