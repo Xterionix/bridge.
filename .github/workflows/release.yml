@@ -8,15 +8,19 @@ jobs:
     build:
         strategy:
             matrix:
-                platform: [windows-latest, ubuntu-latest, macos-latest]
+                platform: [windows-latest, macos-latest]
         runs-on: ${{ matrix.platform }}
         steps:
             - name: Checkout
               uses: actions/checkout@v1
             - name: Setup Node.js
-              uses: actions/setup-node@v3.8.1
+              uses: actions/setup-node@v4
               with:
                   node-version: 16
+            - name: Set up Python
+              uses: actions/setup-python@v2
+              with:
+                  python-version: '2.7'
             - name: Build and release
               run: |
                   npm install
