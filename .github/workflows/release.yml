@@ -8,7 +8,7 @@ jobs:
     build:
         strategy:
             matrix:
-                platform: [windows-latest, ubuntu-latest, macos-latest]
+                platform: [windows-latest, macos-latest]
         runs-on: ${{ matrix.platform }}
         steps:
             - name: Checkout
@@ -20,7 +20,7 @@ jobs:
             - name: Set up Python
               uses: actions/setup-python@v2
               with:
-                  python-version: '3.9'
+                  python-version: '2.7'
             - name: Build and release
               run: |
                   npm install
